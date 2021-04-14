@@ -1,5 +1,3 @@
-'use strict';
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const path = require('path');
@@ -11,9 +9,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      '_entries': path.resolve(SRC_PATH, 'entries'),
-      '_pages': path.resolve(SRC_PATH, 'pages'),
-      '_components': path.resolve(SRC_PATH, 'components'),
+      '@entries': path.resolve(SRC_PATH, 'entries'),
+      '@pages': path.resolve(SRC_PATH, 'pages'),
+      '@components': path.resolve(SRC_PATH, 'components'),
     },
   },
 
@@ -38,7 +36,7 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
         include: SRC_PATH,
         exclude: /node_modules/,
-      }
+      },
     ],
   },
 
