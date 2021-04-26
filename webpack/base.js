@@ -34,8 +34,14 @@ module.exports = {
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
-        include: SRC_PATH,
-        exclude: /node_modules/,
+      },
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        use: ['url-loader?limit=100000'],
       },
     ],
   },
