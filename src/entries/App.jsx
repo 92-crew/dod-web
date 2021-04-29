@@ -5,13 +5,11 @@ import Main from '@pages/Main';
 import Join from '@pages/Join';
 import Login from '@pages/Login';
 import Header from '@components/common/Header';
-import Aside from '@components/common/Aside';
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Aside />
       <main>
         <Switch>
           <Route exact path="/" component={Main} />

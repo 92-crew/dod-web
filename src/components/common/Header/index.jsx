@@ -8,8 +8,8 @@ import {
 
 function Header() {
   return (
-    <>
-      <Navbar collapseOnSelect expand="sm" bg="light" variant="light">
+    <header>
+      <Navbar collapseOnSelect expand="sm" bg="light" variant="light" fixed="top">
         <Navbar.Brand href="/">Do or Die</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -19,15 +19,15 @@ function Header() {
             </Nav.Item>
           </Nav>
           <NavDropdown title="남광우 님" id="collasible-nav-dropdown">
+            <NavDropdown.Item href="/login">로그인</NavDropdown.Item>
             <NavDropdown.Item href="/join" active>회원가입</NavDropdown.Item>
-            <NavDropdown.Item href="/modify">회원정보 수정</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item eventKey="logout">로그아웃</NavDropdown.Item>
           </NavDropdown>
           <Button>Setting</Button>
         </Navbar.Collapse>
       </Navbar>
-    </>
+    </header>
   );
 }
 
