@@ -4,7 +4,9 @@
     "paths": {
       "@entries/*": ["./src/entries/*"],
       "@pages/*": ["./src/pages/*"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@mock/*": ["./src/mock/*"]
     }
   },
   "exclude": [

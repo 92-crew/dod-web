@@ -1,0 +1,65 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #f4f5f9;
+}
+
+main {
+  padding: 10px;
+  background: white;
+  position: relative;
+  min-width: 756px;
+  width: 100%;
+  height: 100vh;
+  top: 56px;
+  background: #f4f5f9;
+}
+
+header .navbar-brand {
+  width: 175px;
+}
+
+.bg-todo-red {
+  /* red */
+  background-color: #f1404b;
+}
+
+.bg-todo-navy {
+  /* navy */
+  background-color: #252c41;
+}
+
+.bg-todo-white {
+  /* white */
+  background-color: #f4f5f9;
+}
+
+.bg-todo-grey {
+  /* grey */
+  background-color: #dddfe6;
+}
+
+.color-todo-red {
+  /* red */
+  color: #f1404b;
+}
+
+.color-todo-navy {
+  /* navy */
+  color: #252c41;
+}
+
+.color-todo-white {
+  /* white */
+  color: #f4f5f9;
+}
+
+.color-todo-grey {
+  /* grey */
+  color: #dddfe6;
+}
