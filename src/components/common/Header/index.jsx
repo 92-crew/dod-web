@@ -8,9 +8,15 @@ import {
 
 import AddTodosModal from '../AddTodosModal';
 // mock data
-// import users from '@mock/data/loginData';
+import loginData from '@mock/data/loginData';
+
+function getLoginData() {
+  return loginData;
+}
 
 function Header() {
+  const users = getLoginData();
+  
   return (
     <header>
       <Navbar collapseOnSelect expand="sm" bg="light" variant="light" fixed="top">
@@ -22,7 +28,7 @@ function Header() {
               <AddTodosModal />
             </Nav.Item>
           </Nav>
-          <NavDropdown title="남광우 님" id="collasible-nav-dropdown">
+          <NavDropdown title={`${users.name} 님`} id="collasible-nav-dropdown">
             <NavDropdown.Item href="/login">로그인</NavDropdown.Item>
             <NavDropdown.Item href="/join" active>회원가입</NavDropdown.Item>
             <NavDropdown.Divider />

@@ -1,0 +1,22 @@
+.login-container {
+  position: absolute;
+  width: 100%;
+  min-width: 420px;
+  height: 100%;
+  display: flex;
+}
+
+.login-wrap {
+  margin: 0 auto;
+  margin-top: 250px;
+  display: flex;
+}
+
+.login-form {
+  margin: 0 auto;
+  margin-left: 10px;
+}
+
+.login-btn {
+  margin: 0 auto;
+}

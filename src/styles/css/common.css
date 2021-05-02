@@ -30,7 +30,7 @@ header .navbar-brand {
   color: #f4f5f9;
 }
 
-.btn-red:focus .btn-red:active .btn-red:hover {
+.btn-red:focus, .btn-red:active, .btn-red:hover {
   /* red */
   background-color: #f1404b;
   color: #f4f5f9;
