@@ -25,6 +25,11 @@ function TodoItems({ data }) {
 
   };
 
+  const onChangeContents = (e) => {
+    console.log(e.target.value);
+
+  };
+
   return (
     <>
       <Card className="mb-5">
@@ -37,7 +42,7 @@ function TodoItems({ data }) {
                   <InputGroup.Checkbox />
                 </InputGroup.Prepend>
                 <FormControl value={item.title} readOnly={!modify} />
-                <Button className="ml-1" variant="grey" onClick={onModify}>수정</Button>
+                <Button className="ml-1" variant="grey" onClick={onModify} onChange={onChangeContents}>수정</Button>
                 <Button className="ml-1" onClick={onSave}>저장</Button>
                 <Button className="ml-1" variant="red" onClick={onDelete}>삭제</Button>
               </InputGroup>
