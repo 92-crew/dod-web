@@ -7,11 +7,13 @@ const SRC_PATH = path.resolve(ROOT_PATH, 'src');
 
 module.exports = {
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.css', '.json'],
     alias: {
       '@entries': path.resolve(SRC_PATH, 'entries'),
       '@pages': path.resolve(SRC_PATH, 'pages'),
       '@components': path.resolve(SRC_PATH, 'components'),
+      '@styles': path.resolve(SRC_PATH, 'styles'),
+      '@mock': path.resolve(SRC_PATH, 'mock'),
     },
   },
 
