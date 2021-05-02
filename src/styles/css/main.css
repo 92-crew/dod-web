@@ -42,9 +42,8 @@ aside {
 .title-wrap {
   margin: 1rem;
   display: flex;
-  color: #f4f5f9;
-  background-color: #f1404b;
-  border: 1px solid #f1404b;
+  color: #252c41;
+  border: 1px solid #252c41;
   border-radius: 10px;
   min-width: 550px;
 }
