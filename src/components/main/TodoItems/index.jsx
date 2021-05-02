@@ -17,6 +17,10 @@ function TodoItems({ data }) {
     !modify && setModify(true);
   };
 
+  const onSave = () => {
+    modify && setModify(false);
+  };
+
   const onDelete = () => {
 
   };
@@ -34,7 +38,7 @@ function TodoItems({ data }) {
                 </InputGroup.Prepend>
                 <FormControl value={item.title} readOnly={!modify} />
                 <Button className="ml-1" variant="grey" onClick={onModify}>수정</Button>
-                <Button className="ml-1" onClick={onModify}>저장</Button>
+                <Button className="ml-1" onClick={onSave}>저장</Button>
                 <Button className="ml-1" variant="red" onClick={onDelete}>삭제</Button>
               </InputGroup>
             );
