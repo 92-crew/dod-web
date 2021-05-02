@@ -1,0 +1,5 @@
+doordie:
+  build: .
+  command: echo 'ready'
+  volumes:
+    - .:/home/ubuntu/doordie

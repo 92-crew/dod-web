@@ -5,5 +5,5 @@ RUN useradd —user-group —create-home —shell /bin/false app &&\
 
 ENV HOME=/home/ubuntu
 
-USER app
-WORKDIR $HOME/chat
+USER ubuntu
+WORKDIR $HOME/doordie
