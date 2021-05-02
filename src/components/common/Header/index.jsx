@@ -5,6 +5,7 @@ import {
   Nav,
   NavDropdown,
 } from 'react-bootstrap';
+import AddTodosModal from '../AddTodosModal';
 
 function Header() {
   return (
@@ -15,7 +16,7 @@ function Header() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Item>
-              <Button variant="outline-primary">할 일 추가</Button>
+              <AddTodosModal />
             </Nav.Item>
           </Nav>
           <NavDropdown title="남광우 님" id="collasible-nav-dropdown">
@@ -24,7 +25,7 @@ function Header() {
             <NavDropdown.Divider />
             <NavDropdown.Item eventKey="logout">로그아웃</NavDropdown.Item>
           </NavDropdown>
-          <Button>Setting</Button>
+          <Button variant="navy">Setting</Button>
         </Navbar.Collapse>
       </Navbar>
     </header>

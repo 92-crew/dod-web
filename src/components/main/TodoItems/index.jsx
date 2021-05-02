@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Card,
@@ -8,7 +8,18 @@ import {
 } from 'react-bootstrap';
 
 function TodoItems({ data }) {
+  const [modify, setModify] = useState(false);
+
   const { dueDateString, todos } = data;
+
+  const onModify = () => {
+    modify && setModify(false);
+    !modify && setModify(true);
+  };
+
+  const onDelete = () => {
+
+  };
 
   return (
     <>
@@ -21,12 +32,14 @@ function TodoItems({ data }) {
                 <InputGroup.Prepend>
                   <InputGroup.Checkbox />
                 </InputGroup.Prepend>
-                <FormControl value={item.title} readOnly />
+                <FormControl value={item.title} readOnly={!modify} />
+                <Button className="ml-1" variant="grey" onClick={onModify}>수정</Button>
+                <Button className="ml-1" onClick={onModify}>저장</Button>
+                <Button className="ml-1" variant="red" onClick={onDelete}>삭제</Button>
               </InputGroup>
             );
           })
         }
-        <Button className="m-1">저장</Button>
       </Card>
     </>
   );

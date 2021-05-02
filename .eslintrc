@@ -43,6 +43,7 @@
     "arrow-body-style": ["off"],
     "no-duplicate-imports": ["error"],
     "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }],
+    "allowShortCircuit": true,
     "react/react-in-jsx-scope": ["off"],
     "react/display-name": [1],
     "react/jsx-filename-extension": [1, { "extensions": ["js", "jsx"] }],

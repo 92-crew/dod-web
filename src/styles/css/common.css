@@ -24,24 +24,46 @@ header .navbar-brand {
   width: 175px;
 }
 
-.bg-todo-red {
+.btn-red {
   /* red */
   background-color: #f1404b;
+  color: #f4f5f9;
 }
 
-.bg-todo-navy {
+.btn-red:focus .btn-red:active .btn-red:hover {
+  /* red */
+  background-color: #f1404b;
+  color: #f4f5f9;
+}
+
+.btn-navy {
   /* navy */
   background-color: #252c41;
+  color: #f4f5f9;
 }
 
-.bg-todo-white {
-  /* white */
-  background-color: #f4f5f9;
+.btn-outline-red {
+  /* navy */
+  border-color: #f1404b;
+  color: #252c41;
 }
 
-.bg-todo-grey {
+.btn-outline-navy {
+  /* navy */
+  border-color: #252c41;
+  color: #252c41;
+}
+
+.btn-grey {
   /* grey */
   background-color: #dddfe6;
+  color: #252c41;
+}
+
+.btn-outline-grey {
+  /* navy */
+  border-color: #dddfe6;
+  color: #252c41;
 }
 
 .color-todo-red {
