@@ -1,5 +1,6 @@
 doordie:
   build: .
+  command: echo 'ready'
   ports:
    - '4000:4000'
   volumes:
