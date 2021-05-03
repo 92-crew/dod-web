@@ -18,7 +18,7 @@ module.exports = {
   },
 
   entry: {
-    app: path.join(SRC_PATH, 'entries', 'index.jsx'),
+    app: ['babel-polyfill', path.join(SRC_PATH, 'entries', 'index.jsx')],
   },
 
   module: {

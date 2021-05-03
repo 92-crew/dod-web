@@ -26,7 +26,12 @@ function AddTodosModal() {
 
   const addTodos = () => {
     // 데이터 추가하기(ajax 통신)
-    console.log(contents, year, month, day);
+    const params = {
+      title: contents,
+      status: "UNRESOLVED",
+      dueDate: `${year}-${month}-${day}`,
+    };
+    console.log('params', params);
 
     // 모달 닫기
     handleClose();
