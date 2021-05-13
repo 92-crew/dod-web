@@ -13,6 +13,7 @@ module.exports = {
       '@pages': path.resolve(SRC_PATH, 'pages'),
       '@components': path.resolve(SRC_PATH, 'components'),
       '@styles': path.resolve(SRC_PATH, 'styles'),
+      '@utils': path.resolve(SRC_PATH, 'utils'),
       '@mock': path.resolve(SRC_PATH, 'mock'),
     },
   },

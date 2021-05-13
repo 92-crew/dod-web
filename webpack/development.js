@@ -9,8 +9,5 @@ module.exports = merge(base, {
     port: 4000,
     historyApiFallback: true,
     hot: true,
-    proxy: {
-      "/api": "http://localhost:8080",
-    },
   },
 });
