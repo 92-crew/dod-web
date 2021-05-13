@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Navbar,
@@ -8,7 +8,7 @@ import {
 
 import AddTodosModal from '../AddTodosModal';
 // mock data
-import loginData from '@mock/data/loginData';
+import loginData from '@mock/login/POST';
 
 function getLoginData() {
   return loginData;
