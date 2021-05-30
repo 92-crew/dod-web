@@ -4,18 +4,20 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Main from '@pages/Main';
 import Join from '@pages/Join';
 import Login from '@pages/Login';
-import Header from '@components/common/Header';
+
+import '@styles/css/common';
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <main>
-        <Switch>
-          <Route exact path="/" component={Main} />
-          <Route path="/login" component={Login} />
-          <Route path="/join" component={Join} />
-        </Switch>
+      <main class="container">
+        <div class="wrap">
+          <Switch>
+            <Route exact path="/" component={Main} />
+            <Route path="/login" component={Login} />
+            <Route path="/join" component={Join} />
+          </Switch>
+        </div>
       </main>
     </BrowserRouter>
   );

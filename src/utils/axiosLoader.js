@@ -18,9 +18,8 @@ const method = {
  */
 export async function axiosLoader(url = '', data = {}, successClbk = noop, failClbk = noop) {
   const { type = 'get', params = {} } = data;
-
   try {
-    const response = await method[type](url);
+    const response = await method[type](url, params);
     // success callback
     successClbk(response);
   } catch (error) {
