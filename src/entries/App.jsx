@@ -6,19 +6,21 @@ import Join from '@pages/Join';
 import Login from '@pages/Login';
 
 import '@styles/css/common';
+import Layout from '@components/common/Layout';
+import Wrap from '@components/common/Wrap';
 
 function App() {
   return (
     <BrowserRouter>
-      <main class="container">
-        <div class="wrap">
+      <Layout>
+        <Wrap>
           <Switch>
             <Route exact path="/" component={Main} />
             <Route path="/login" component={Login} />
             <Route path="/join" component={Join} />
           </Switch>
-        </div>
-      </main>
+        </Wrap>
+      </Layout>
     </BrowserRouter>
   );
 }

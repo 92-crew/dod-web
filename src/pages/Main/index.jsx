@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import '@styles/css/main';
 
-import AsideList from '@components/main/AsideList';
-import TodoList from '@components/main/TodoList';
-
 import { axiosLoader } from '@utils/axiosLoader';
 
-const url = '/api/v1/member/check/duplicate?email=sample@sample.com';
+import TodoSidebar from './TodoSidebar'
+import TodoContents from './TodoContents';
+
+const url = '/api/v1/member/check/duplicate';
 const url2 = '/api/v1/member/login';
 
 axiosLoader(url, {
   type: 'get',
+  prams: {
+    email: 'sample@sample.com',
+  },
 }, (res) => {
   console.log(res);
 }, (err) => {
@@ -30,7 +33,7 @@ axiosLoader(url2, {
 })
 
 function Main() {
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
   // const [loading, setLoading] = useState(true);
   // const [error, setError] = useState(null);
   
@@ -57,8 +60,8 @@ function Main() {
   // console.log('data', data);
   return (
     <>
-      <AsideList data={data} />
-      <TodoList data={data} />
+      <TodoSidebar />
+      <TodoContents />
     </>
   );
 }

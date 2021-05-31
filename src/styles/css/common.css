@@ -40,3 +40,27 @@ h3 {
   color: #252c41;
   font-size: 18px;
 }
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + label {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background: url(../images/chk_n.png);
+  background-size: contain;
+  border: none;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked + label {
+  width: 25px;
+  height: 25px;
+  background: url(../images/chk_y.png);
+  background-size: contain;
+  border: none;
+  vertical-align: middle;
+}

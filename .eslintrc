@@ -39,6 +39,7 @@
   ],
   "rules": {
     "no-console": ["warn"],
+    "quotes": ["error", "single"],
     "no-unused-vars": ["warn"],
     "arrow-body-style": ["off"],
     "no-duplicate-imports": ["error"],
@@ -52,7 +53,7 @@
     "import/prefer-default-export": ["off"],
     "import/no-unresolved": ["off"],
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
-    "jsx-quotes": ["off"],
+    "jsx-quotes": ["error", "single"],
     "jsx-a11y/label-has-associated-control": ["off"],
     "indent": ["error", 2, {"ignoredNodes": ["JSXElement"]}],
     "react/jsx-indent": ["off"],
