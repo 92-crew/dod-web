@@ -2,8 +2,8 @@ import React from 'react';
 
 function TodoList({ children }) {
   return (
-    <div class="todo_list">
-      <div class="todo_title">
+    <div className='todo_list'>
+      <div className='todo_title'>
         <h3>할일 목록</h3>
       </div>
       <ul>

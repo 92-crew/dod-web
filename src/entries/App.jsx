@@ -7,19 +7,16 @@ import Login from '@pages/Login';
 
 import '@styles/css/common';
 import Layout from '@components/common/Layout';
-import Wrap from '@components/common/Wrap';
 
 function App() {
   return (
     <BrowserRouter>
       <Layout>
-        <Wrap>
-          <Switch>
-            <Route exact path="/" component={Main} />
-            <Route path="/login" component={Login} />
-            <Route path="/join" component={Join} />
-          </Switch>
-        </Wrap>
+        <Switch>
+          <Route exact path='/' component={Login} />
+          <Route path='/main' component={Main} />
+          <Route path='/join' component={Join} />
+        </Switch>
       </Layout>
     </BrowserRouter>
   );

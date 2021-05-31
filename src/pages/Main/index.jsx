@@ -9,28 +9,28 @@ import TodoContents from './TodoContents';
 const url = '/api/v1/member/check/duplicate';
 const url2 = '/api/v1/member/login';
 
-axiosLoader(url, {
-  type: 'get',
-  prams: {
-    email: 'sample@sample.com',
-  },
-}, (res) => {
-  console.log(res);
-}, (err) => {
-  console.log(err);
-});
+// axiosLoader(url, {
+//   type: 'get',
+//   prams: {
+//     email: 'sample@sample.com',
+//   },
+// }, (res) => {
+//   console.log(res);
+// }, (err) => {
+//   console.log(err);
+// });
 
-axiosLoader(url2, {
-  type: 'post',
-  params: {
-    email: 'sample@sample.com',
-    password: 'sample',
-  },
-}, (res) => {
-  console.log(res);
-}, (err) => {
-  console.log(err);
-})
+// axiosLoader(url2, {
+//   type: 'post',
+//   params: {
+//     email: 'sample@sample.com',
+//     password: 'sample',
+//   },
+// }, (res) => {
+//   console.log(res);
+// }, (err) => {
+//   console.log(err);
+// })
 
 function Main() {
   // const [data, setData] = useState(null);
