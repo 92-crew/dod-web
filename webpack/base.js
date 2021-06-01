@@ -14,6 +14,7 @@ module.exports = {
       '@components': path.resolve(SRC_PATH, 'components'),
       '@styles': path.resolve(SRC_PATH, 'styles'),
       '@utils': path.resolve(SRC_PATH, 'utils'),
+      '@apis': path.resolve(SRC_PATH, 'apis'),
       '@mock': path.resolve(SRC_PATH, 'mock'),
     },
   },

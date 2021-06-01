@@ -1,38 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '@styles/css/main';
 
-import { axiosLoader } from '@utils/axiosLoader';
-
 import TodoSidebar from './TodoSidebar'
 import TodoContents from './TodoContents';
-
-const url = '/api/v1/member/check/duplicate';
-const url2 = '/api/v1/member/login';
-
-// axiosLoader(url, {
-//   type: 'get',
-//   prams: {
-//     email: 'sample@sample.com',
-//   },
-// }, (res) => {
-//   console.log(res);
-// }, (err) => {
-//   console.log(err);
-// });
-
-// axiosLoader(url2, {
-//   type: 'post',
-//   params: {
-//     email: 'sample@sample.com',
-//     password: 'sample',
-//   },
-// }, (res) => {
-//   console.log(res);
-// }, (err) => {
-//   console.log(err);
-// })
+import { getUserInfo } from '@utils/userInfoStorage';
 
 function Main() {
+  console.log(getUserInfo());
   // const [data, setData] = useState(null);
   // const [loading, setLoading] = useState(true);
   // const [error, setError] = useState(null);

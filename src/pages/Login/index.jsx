@@ -2,13 +2,9 @@ import React, { useState, useRef } from 'react';
 import '@styles/css/login';
 import icon from '@styles/images/dod_logo.png';
 
-import { axiosLoader } from '@utils/axiosLoader';
-
 import Button from '@components/common/Button';
-
-const API_LIST = {
-  LOGIN: '/api/v1/member/login',
-}
+import { doLogin } from '@apis/member';
+import { setUserInfo } from '@utils/userInfoStorage';
 
 function Login() {
   const [id, setId] = useState('');
@@ -21,8 +17,14 @@ function Login() {
       email: id,
       password: pw,
     };
-    
-    doLogin(params);
+
+    doLogin(params, (res) => {
+      if (!res.data) { return; }
+      
+      setUserInfo(res.data);
+      // main 페이지 이동
+      location.href = '/main';
+    });
   };
 
   const onChangeInput = (type) => (e) => {
@@ -50,28 +52,6 @@ function Login() {
       </div>
     </div>
   );
-}
-
-/**
- * 로그인 실행
- * @param {Object} params param data
- */
-function doLogin(params) {
-  axiosLoader(API_LIST.LOGIN, {
-    type: 'post',
-    params,
-  }, (res) => {
-    // user info localstorage 저장
-    console.log(res);
-
-    // main 페이지 이동
-    window.location.href = '/main';
-  }, errorClbk);
-}
-
-function errorClbk(err) {
-  alert('로그인에 실패하였습니다.\n다시 시도해주십시오.')
-  console.log(err);
 }
 
 export default Login;
