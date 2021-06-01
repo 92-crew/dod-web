@@ -2,12 +2,8 @@ import React, { useState, useRef } from 'react';
 import '@styles/css/join';
 
 import Button from '@components/common/Button';
-import { axiosLoader } from '@utils/axiosLoader';
-
-const API_LIST = {
-  DUPLICATE: '/api/v1/member/check/duplicate',
-  JOIN: '/api/v1/member/join',
-}
+import { checkDuplicateId, doJoin } from '@apis/member';
+import { setUserInfo } from '@utils/userInfoStorage';
 
 function Join() {
   const [id, setId] = useState('');
@@ -25,7 +21,15 @@ function Join() {
       password: pw,
     };
 
-    doJoin(params);
+    checkDuplicateId(params, (res) => {
+      if (!res.data) { return; }
+
+      doJoin(params, (res) => {
+        setUserInfo(res.data);
+        // main 페이지 이동
+        location.href = '/main';
+      });
+    });
   };
 
   const onChangeInput = (type) => (e) => {
@@ -58,36 +62,6 @@ function Join() {
       <Button className='join_btn' text='회원가입 후 로그인' onClick={onClickJoin} />
     </div>
   );
-}
-
-function doJoin(params) {
-  const { email } = params;
-  
-  checkDuplicateId({ email }, (res) => {
-    console.log(res);
-    res.data && axiosLoader(API_LIST.JOIN, {
-      type: 'post',
-      params,
-    }, (res) => {
-      // user info localstorage 저장
-      console.log(res);
-
-      // main 페이지 이동
-      window.location.href = '/main';
-    }, errorClbk);
-  });
-}
-
-function checkDuplicateId(params, successClbk) {
-  axiosLoader(API_LIST.DUPLICATE, {
-    type: 'get',
-    params,
-  }, successClbk, errorClbk);
-}
-
-function errorClbk(err) {
-  alert('회원가입에 실패하였습니다.\n다시 시도해주십시오.')
-  console.log(err);
 }
 
 export default Join;
