@@ -3,7 +3,7 @@ import '@styles/css/join';
 
 import Button from '@components/common/Button';
 import { checkDuplicateId, doJoin } from '@apis/member';
-import { setUserInfo } from '@utils/userInfoStorage';
+import { setUserInfo } from '@utils/userInfo';
 
 function Join() {
   const [id, setId] = useState('');

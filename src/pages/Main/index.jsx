@@ -3,7 +3,7 @@ import '@styles/css/main';
 
 import TodoSidebar from './TodoSidebar'
 import TodoContents from './TodoContents';
-import { getUserInfo } from '@utils/userInfoStorage';
+import { getUserInfo } from '@utils/userInfo';
 import { getTodoList } from '@apis/todos';
 
 function Main() {

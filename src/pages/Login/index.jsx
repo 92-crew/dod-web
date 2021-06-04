@@ -4,7 +4,7 @@ import icon from '@styles/images/dod_logo.png';
 
 import Button from '@components/common/Button';
 import { doLogin } from '@apis/member';
-import { setUserInfo } from '@utils/userInfoStorage';
+import { setUserInfo } from '@utils/userInfo';
 
 function Login() {
   const [id, setId] = useState('');

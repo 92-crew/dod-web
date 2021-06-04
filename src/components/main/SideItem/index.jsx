@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-function TodoItem({ item, idx, isActive, onClick }) {
+function SideItem({ item, idx, isActive, onClick }) {
   const { dueDateString, todos } = item;
 
   const onClickHandler = useCallback(() => {
@@ -17,4 +17,4 @@ function TodoItem({ item, idx, isActive, onClick }) {
   );
 }
 
-export default TodoItem;
+export default SideItem;
