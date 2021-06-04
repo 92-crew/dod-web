@@ -4,38 +4,43 @@ import '@styles/css/main';
 import TodoSidebar from './TodoSidebar'
 import TodoContents from './TodoContents';
 import { getUserInfo } from '@utils/userInfoStorage';
+import { getTodoList } from '@apis/todos';
 
 function Main() {
-  console.log(getUserInfo());
-  // const [data, setData] = useState(null);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
-  
-  // useEffect(() => {
-  //   getListData();
-  // }, []);
+  const [todo, setTodo] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);  
 
-  // // 전체 리스트 조회
-  // const getListData = () => {
-  //   const url = '/api/content/v1/todos';
-    
-  //   setLoading(true);
-  //   axiosLoader(url, {}, (res) => {
-  //     setData(res.data);
-  //     setLoading(false);
-  //   }, (err) => {
-  //     setError(err);
-  //   });
-  // };
-
-  // if (loading) return <div>로딩중..</div>;
-  // if (error) return <div>에러가 발생했습니다.</div>;  
+  const userInfo = getUserInfo();
+  const isLogin = !!userInfo && !!userInfo.name;
   
-  // console.log('data', data);
+  // 전체 리스트 조회
+  useEffect(() => {
+    getTodoList((res) => {
+      setLoading(false);
+      setTodo(res.data);
+    }, (err) => {
+      setError(err);
+    });
+  }, []);
+
+  if (!isLogin) {
+    const timer = setTimeout(() => {
+      clearTimeout(timer);
+      // login 페이지 이동
+      location.href = '/';
+    }, 3000);
+    return <div> 로그인이 필요합니다. 잠시 후 로그인 페이지로 이동합니다.</div>
+  }
+
+  if (loading) return <div>데이터를 읽어오는 중 입니다...</div>;
+  
+  if (error || !todo) return <div>데이터를 읽는 중 에러가 발생하였습니다.</div>;  
+  
   return (
     <>
-      <TodoSidebar />
-      <TodoContents />
+      <TodoSidebar userInfo={userInfo} contents={todo.contents} />
+      <TodoContents contents={todo.contents} />
     </>
   );
 }
