@@ -1,12 +1,22 @@
 import axios from 'axios';
+import { getUserInfo } from './userInfoStorage';
 
 const noop = () => {};
 
+const { mid } = getUserInfo();
+
+const instance = axios.create({
+  headers: { 
+    'x-dod-mid': mid || 2,
+  },
+  timeout: 3000,
+});
+
 const method = {
-  get: axios.get,
-  post: axios.post,
-  put: axios.put,
-  delete: axios.delete,
+  get: instance.get,
+  post: instance.post,
+  put: instance.put,
+  delete: instance.delete,
 }
 
 /**

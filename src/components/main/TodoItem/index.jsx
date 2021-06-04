@@ -1,123 +1,19 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
-function TodoItem({ onClick }) {
+function TodoItem({ item, idx, isActive, onClick }) {
+  const { dueDateString, todos } = item;
+
+  const onClickHandler = useCallback(() => {
+    onClick && onClick(todos, idx);
+  })
+
   return (
-    <>
-      <li>
-        <a href='#none' className='on' onClick={onClick}>
-          <span>2021년 4월 22일</span>
-          <span>2개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2021년 4월 21일</span>
-          <span>3개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2021년 4월 20일</span>
-          <span>25개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2021년 3월 22일</span>
-          <span>1개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2020년 4월 22일</span>
-          <span>278개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2020년 4월 22일</span>
-          <span>278개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2020년 4월 22일</span>
-          <span>278개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2020년 4월 22일</span>
-          <span>278개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2020년 4월 22일</span>
-          <span>278개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2020년 4월 22일</span>
-          <span>278개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2020년 4월 22일</span>
-          <span>278개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2020년 4월 22일</span>
-          <span>278개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2020년 4월 22일</span>
-          <span>278개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2020년 4월 22일</span>
-          <span>278개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2020년 4월 22일</span>
-          <span>278개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2020년 4월 22일</span>
-          <span>278개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2020년 4월 22일</span>
-          <span>278개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2020년 4월 22일</span>
-          <span>278개의 할일</span>
-        </a>
-      </li>
-      <li>
-        <a href='#none'>
-          <span>2020년 4월 22일</span>
-          <span>278개의 할일</span>
-        </a>
-      </li>
-    </>
+    <li>
+      <a href='#none' className={isActive ? 'on' : ''} onClick={onClickHandler}>
+        <span>{dueDateString}</span>
+        <span>{todos.length}개의 할일</span>
+      </a>
+    </li>
   );
 }
 
