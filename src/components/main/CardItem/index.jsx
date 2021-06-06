@@ -42,7 +42,7 @@ function CardItem({ type, text, id, isChecked, eventHandler }) {
         <label htmlFor={`chk_${id}`}></label>
       </div>
       <div className='item_text'>
-        <input type='text' value={text} onChange={onChangeHandler('text')} />
+        <input type='text' defaultValue={text} onChange={onChangeHandler('text')} />
       </div>
       <button className='trash_ico' onClick={onClickHandler('remove')}></button>
     </div>

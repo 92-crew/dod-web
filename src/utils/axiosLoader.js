@@ -3,11 +3,11 @@ import { getUserInfo } from '@utils/userInfo';
 
 const noop = () => {};
 
-const { mid } = getUserInfo();
+const userInfo = getUserInfo();
 
 const instance = axios.create({
   headers: { 
-    'x-dod-mid': mid || 2,
+    'x-dod-mid': userInfo && userInfo.mid ? userInfo.mid : 2,
   },
   timeout: 3000,
 });
