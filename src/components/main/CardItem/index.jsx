@@ -1,50 +1,73 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
-function CardItem({ type, text, id, isChecked, eventHandler }) {
+function CardItem({ type, item, eventHandler, todoId }) {
+  const [text, setText] = useState(item && item.title || '');
+  const [checked, setChecked] = useState(item && item.status === 'RESOLVED' || false);
+  const { onAddItem, onModifyItem, onRemoveItem } = eventHandler;
 
-  const { onCheckBox, onChangeTxt, onAddClick, onRemoveClick } = eventHandler;
+  const itemId = item && item.id || 0;
 
-  const onChangeHandler = useCallback(type => e => {
-    const action = {
-      checkbox: onCheckBox,
-      text: onChangeTxt,
-    }
-    action[type] && action[type](e);
+  const getItemData = useCallback((title, isChecked) => {
+    return {
+      title,
+      status: isChecked ? 'RESOLVED' : 'UNRESOLVED',
+      dueDate: todoId,
+    };
   }, []);
 
-  const onClickHandler = useCallback(type => e => {
-    const action = {
-      add: onAddClick,
-      remove: onRemoveClick,
-    }
-    action[type] && action[type](id || 0);
+  const onChangeText = useCallback((e) => {
+    setText(e.target.value);
   }, []);
 
-  // 아이템 추가
+  const onChangeCheck = (e) => {
+    setChecked(e.target.checked);
+    onModifyItem(itemId, getItemData(text, e.target.checked));
+  };
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+
+    if (!text || !text.length) { return; }
+
+    const data = getItemData(text, checked);
+    // 추가하기
+    if(type === 'add') {
+      onAddItem(data);
+      return;
+    }
+    // 수정하기
+    onModifyItem(itemId, data);
+  };
+  
   if(type === 'add') {
+    // todo 아이템 추가 component
     return (
       <div className='card_item'>
-        <div className='item_add'>
-          <button className='add_ico' onClick={onClickHandler('add')}></button>
-        </div>
-        <div className='item_text'>
-          <input type='text' value={text} onChange={onChangeHandler('text')} />
-        </div>
+        <form onSubmit={onSubmitHandler}>
+          <div className='item_add'>
+            <button className='add_ico' type='submit'></button>
+          </div>
+          <div className='item_text'>
+            <input type='text' value={text} onChange={onChangeText} />
+          </div>
+        </form>
       </div>
     );
   }
 
-  // 기본 아이템
+  // todo 아이템 component
   return (
-    <div className='card_item'>
-      <div className='item_check'>
-        <input type='checkbox' id={`chk_${id}`} onChange={onChangeHandler('checkbox')} defaultChecked={isChecked} />
-        <label htmlFor={`chk_${id}`}></label>
-      </div>
-      <div className='item_text'>
-        <input type='text' defaultValue={text} onChange={onChangeHandler('text')} />
-      </div>
-      <button className='trash_ico' onClick={onClickHandler('remove')}></button>
+    <div className='card_item' >
+      <form onSubmit={onSubmitHandler}>
+        <div className='item_check'>
+          <input type='checkbox' id={`chk_${itemId}`} onChange={onChangeCheck} checked={checked} />
+          <label htmlFor={`chk_${itemId}`}></label>
+        </div>
+        <div className='item_text'>
+          <input type='text' value={text} onChange={onChangeText} disabled={checked} />
+        </div>
+      </form>
+      <button className='trash_ico' onClick={() => onRemoveItem(itemId)}></button>
     </div>
   );
 }

@@ -1,49 +1,54 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import CardList from '@components/main/CardList';
 import CardItem from '@components/main/CardItem';
+import { addTodoItem, modifyTodoItem, removeTodoItem } from '@apis/todos';
 
 function TodoContents({ contents }) {
-  const [text, setText] = useState('');
   console.log(contents);
 
   const eventHandler = {
-    onCheckBox: useCallback((e) => {
-      const checked = e.target.checked;
+    onAddItem: useCallback((data) => {
+      console.log('addItem',data);
+      addTodoItem(data, successClbk, errorClbk);
+    }, []),
+    onModifyItem: useCallback((id, data) => {
+      console.log('modifyItem', id, data);
+      modifyTodoItem(id, data, successClbk, errorClbk);
+    }, []),
+    onRemoveItem: useCallback((id) => {
+      console.log('removeItem', id);
+      removeTodoItem(id, successClbk, errorClbk);
+    }, []),
+  };
 
-      console.log(checked);
-    }, []),
-    onChangeTxt: useCallback((e) => {
-      console.log(e.target.value);
-      const value = e.target.value;
-      setText(value);
-    }, []),
-    onAddClick: useCallback((id) => {
-      console.log(id);
-    }, []),
-    onRemoveClick: useCallback((id) => {
-      console.log(id);
-    }, []),
-  }
+  const successClbk = (res) => {
+    console.log(res);
+  };
+
+  const errorClbk = (err) => {
+    console.log(err);
+  };
 
   const cardWrap = (item) => {
     const { dueDateString, todos } = item;
+    const todoId = todos.find(item => item.dueDate).dueDate;
 
     return (
-      <CardList key={`cardList_${dueDateString}`} title={dueDateString}>
+      <CardList key={`cardList_${dueDateString}`} title={dueDateString} todoId={todoId}>
         {
           todos.map(item =>
             <CardItem
               key={`cardItem_${item.id}`}
-              type='basic'
-              text={item.title || text}
-              id={item.id}
-              isChecked={item.status === 'RESOLVED'}
+              type='default'
+              item={item}
+              todoId={todoId}
               eventHandler={eventHandler}
             />)
         }
-        <CardItem
+        <CardItem 
           type='add'
           eventHandler={eventHandler}
+          todoId={todoId}
         />
       </CardList>
     );

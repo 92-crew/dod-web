@@ -1,8 +1,8 @@
 import React from 'react';
 
-function CardList({ title, children }) {
+function CardList({ title, todoId, children }) {
   return (
-    <div className='card_list'>
+    <div className='card_list' id={todoId}>
       <div className='card_title'>
         <p>{title}</p>
       </div>
