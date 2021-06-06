@@ -1,28 +1,33 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import CardList from '@components/main/CardList';
 import CardItem from '@components/main/CardItem';
+import { addTodoItem, modifyTodoItem, removeTodoItem } from '@apis/todos';
 
 function TodoContents({ contents }) {
-  // const [text, setText] = useState('');
   console.log(contents);
 
   const eventHandler = {
-    onCheckBox: useCallback((e) => {
-      const checked = e.target.checked;
+    onAddItem: useCallback((data) => {
+      console.log('addItem',data);
+      addTodoItem(data, successClbk, errorClbk);
+    }, []),
+    onModifyItem: useCallback((id, data) => {
+      console.log('modifyItem', id, data);
+      modifyTodoItem(id, data, successClbk, errorClbk);
+    }, []),
+    onRemoveItem: useCallback((id) => {
+      console.log('removeItem', id);
+      removeTodoItem(id, successClbk, errorClbk);
+    }, []),
+  };
 
-      console.log(checked);
-    }, []),
-    onChangeTxt: useCallback((e) => {
-      // console.log(e.target.value);
-      // cone.log(e, e.target.value, text);
-    }, []),
-    onAddClick: useCallback((e) => {
-      console.log(e, e.target.value);
-    }, []),
-    onRemoveClick: useCallback((e, id) => {
-      console.log(e, id);
-    }, []),
-  }
+  const successClbk = (res) => {
+    console.log(res);
+  };
+
+  const errorClbk = (err) => {
+    console.log(err);
+  };
 
   const cardWrap = (item) => {
     const { dueDateString, todos } = item;
@@ -34,16 +39,16 @@ function TodoContents({ contents }) {
           todos.map(item =>
             <CardItem
               key={`cardItem_${item.id}`}
-              type='basic'
+              type='default'
               item={item}
-              isChecked={item.status === 'RESOLVED'}
+              todoId={todoId}
               eventHandler={eventHandler}
             />)
         }
-        <CardItem
+        <CardItem 
           type='add'
           eventHandler={eventHandler}
-          item={{}}
+          todoId={todoId}
         />
       </CardList>
     );
