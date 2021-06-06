@@ -3,7 +3,7 @@ import CardList from '@components/main/CardList';
 import CardItem from '@components/main/CardItem';
 
 function TodoContents({ contents }) {
-  const [text, setText] = useState('');
+  // const [text, setText] = useState('');
   console.log(contents);
 
   const eventHandler = {
@@ -13,30 +13,29 @@ function TodoContents({ contents }) {
       console.log(checked);
     }, []),
     onChangeTxt: useCallback((e) => {
-      console.log(e.target.value);
-      const value = e.target.value;
-      setText(value);
+      // console.log(e.target.value);
+      // cone.log(e, e.target.value, text);
     }, []),
-    onAddClick: useCallback((id) => {
-      console.log(id);
+    onAddClick: useCallback((e) => {
+      console.log(e, e.target.value);
     }, []),
-    onRemoveClick: useCallback((id) => {
-      console.log(id);
+    onRemoveClick: useCallback((e, id) => {
+      console.log(e, id);
     }, []),
   }
 
   const cardWrap = (item) => {
     const { dueDateString, todos } = item;
+    const todoId = todos.find(item => item.dueDate).dueDate;
 
     return (
-      <CardList key={`cardList_${dueDateString}`} title={dueDateString}>
+      <CardList key={`cardList_${dueDateString}`} title={dueDateString} todoId={todoId}>
         {
           todos.map(item =>
             <CardItem
               key={`cardItem_${item.id}`}
               type='basic'
-              text={item.title || text}
-              id={item.id}
+              item={item}
               isChecked={item.status === 'RESOLVED'}
               eventHandler={eventHandler}
             />)
@@ -44,6 +43,7 @@ function TodoContents({ contents }) {
         <CardItem
           type='add'
           eventHandler={eventHandler}
+          item={{}}
         />
       </CardList>
     );

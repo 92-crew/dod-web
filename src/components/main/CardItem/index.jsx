@@ -1,13 +1,20 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
-function CardItem({ type, text, id, isChecked, eventHandler }) {
+function CardItem({ type, item, isChecked, eventHandler }) {
+  const [text, setText] = useState('');
 
+  const { title, id } = item;
+   
   const { onCheckBox, onChangeTxt, onAddClick, onRemoveClick } = eventHandler;
 
   const onChangeHandler = useCallback(type => e => {
     const action = {
+      text: () => {
+        console.log(e.target.value);
+        setText(e.target.value);
+        return onChangeTxt;
+      },
       checkbox: onCheckBox,
-      text: onChangeTxt,
     }
     action[type] && action[type](e);
   }, []);
@@ -17,15 +24,23 @@ function CardItem({ type, text, id, isChecked, eventHandler }) {
       add: onAddClick,
       remove: onRemoveClick,
     }
-    action[type] && action[type](id || 0);
+    action[type] && action[type](e, id || 0);
+    console.log(text);
   }, []);
+
+  // const onSubmitHandler = useCallback((e) => {
+  //   e.preventDefault();
+  //   console.log(e.target.value, text);
+
+  //   onAddClick(e);
+  // }, []);
 
   // 아이템 추가
   if(type === 'add') {
     return (
       <div className='card_item'>
         <div className='item_add'>
-          <button className='add_ico' onClick={onClickHandler('add')}></button>
+          <button className='add_ico' type='submit' onClick={onClickHandler('add')}></button>
         </div>
         <div className='item_text'>
           <input type='text' value={text} onChange={onChangeHandler('text')} />
@@ -42,7 +57,7 @@ function CardItem({ type, text, id, isChecked, eventHandler }) {
         <label htmlFor={`chk_${id}`}></label>
       </div>
       <div className='item_text'>
-        <input type='text' defaultValue={text} onChange={onChangeHandler('text')} />
+        <input type='text' defaultValue={title} onChange={onChangeHandler('text')} />
       </div>
       <button className='trash_ico' onClick={onClickHandler('remove')}></button>
     </div>
