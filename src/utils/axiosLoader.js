@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getUserInfo } from './userInfoStorage';
+import { getUserInfo } from '@utils/userInfo';
 
 const noop = () => {};
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function TodoList({ children }) {
+function SideList({ children }) {
   return (
     <div className='todo_list'>
       <div className='todo_title'>
@@ -13,4 +13,4 @@ function TodoList({ children }) {
   );
 }
 
-export default TodoList;
+export default SideList;

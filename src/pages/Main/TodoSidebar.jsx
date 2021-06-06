@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 
 import UserInfo from '@components/main/UserInfo';
-import TodoList from '@components/main/TodoList';
-import TodoItem from '@components/main/TodoItem';
+import SideList from '@components/main/SideList';
+import SideItem from '@components/main/SideItem';
 import Button from '@components/common/Button';
-import { removeUserInfo } from '@utils/userInfoStorage';
+import { removeUserInfo } from '@utils/userInfo';
 
 function TodoSidebar({ userInfo, contents }) {
   const [activeIdx, setActiveIdx] = useState(0);
@@ -26,17 +26,23 @@ function TodoSidebar({ userInfo, contents }) {
   return (
     <div className='todo_sidebar'>
       <UserInfo name={userInfo.name}>
-        <Button className='logout_ico' onClick={onLogoutClick}/>
+        <Button className='logout_ico' onClick={onLogoutClick} />
       </UserInfo>
-      <TodoList>
+      <SideList>
         {
           contents.map((item, idx) => {
             return (
-              <TodoItem key={item.dueDateString} item={item} idx={idx} isActive={idx === activeIdx} onClick={onItemClick} />
+              <SideItem
+                key={`sideItem_${item.dueDateString}`}
+                item={item}
+                idx={idx}
+                isActive={idx === activeIdx}
+                onClick={onItemClick}
+              />
             );
           })
         }
-      </TodoList>
+      </SideList>
     </div>
   );
 }
