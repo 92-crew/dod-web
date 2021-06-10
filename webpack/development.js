@@ -1,12 +1,12 @@
 const { merge } = require('webpack-merge');
 const base = require('./base');
-const cors = require('cors');
+// const cors = require('cors');
 // api mocker
 const apiMocker = require('connect-api-mocker');
 
 module.exports = merge(base, {
   mode: 'development',
-  devtool: 'eval',
+  devtool: 'inline-source-map',
 
   devServer: {
     port: 4000,
@@ -35,11 +35,19 @@ module.exports = merge(base, {
     //   );
     // },
     // webpack dev server 프록시 설정 (express)
-    proxy: {
-      '/api': {
-        target: 'http://ec2-3-128-247-75.us-east-2.compute.amazonaws.com:8080',
-        changeOrigin: true
+    proxy: [
+      {
+        '/api/v1/member': {
+          target: 'http://ec2-3-128-247-75.us-east-2.compute.amazonaws.com:8080',
+          changeOrigin: true
+        }
+      },
+      {
+        '/api/content': {
+          target: 'http://ec2-3-128-247-75.us-east-2.compute.amazonaws.com:8081',
+          changeOrigin: true
+        }
       }
-    }
+    ]
   },
 });
