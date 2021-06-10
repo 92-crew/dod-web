@@ -4,6 +4,7 @@ const base = require('./base');
 
 module.exports = merge(base, {
   mode: 'production',
+  devtool: 'cheap-module-source-map',
 
   module: {
     rules: [

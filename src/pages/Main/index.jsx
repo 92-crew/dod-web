@@ -28,7 +28,7 @@ function Main() {
     const timer = setTimeout(() => {
       clearTimeout(timer);
       // login 페이지 이동
-      location.href = '/';
+      location.href = '/login';
     }, 3000);
     return <div> 로그인이 필요합니다. 잠시 후 로그인 페이지로 이동합니다.</div>
   }
