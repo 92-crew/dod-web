@@ -7,7 +7,7 @@ const userInfo = getUserInfo();
 
 const instance = axios.create({
   headers: { 
-    'x-dod-mid': userInfo && userInfo.mid ? userInfo.mid : 2,
+    'x-dod-mid': userInfo && userInfo.id ? userInfo.id : '',
   },
   timeout: 3000,
 });

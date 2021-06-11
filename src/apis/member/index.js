@@ -29,12 +29,7 @@ export function doJoin(params, successClbk) {
 }
 
 export function checkDuplicateId(params, successClbk) {
-  const { email } = params;
-
-  axiosLoader(API_LIST.DUPLICATE, {
-    type: 'get',
-    params: { email },
-  }, successClbk, (err) => {
+  axiosLoader(API_LIST.DUPLICATE + `?email=${params.email}`, {}, successClbk, (err) => {
     errorClbk(err, '중복된 id입니다.\n다시 시도해주십시오.');
   });
 }
