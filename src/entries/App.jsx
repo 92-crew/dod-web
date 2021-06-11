@@ -1,22 +1,23 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-
-import Main from '@pages/Main';
-import Join from '@pages/Join';
-import Login from '@pages/Login';
-
 import '@styles/css/common';
 import Layout from '@components/common/Layout';
+
+const Main = lazy(() => import('@pages/Main'));
+const Join = lazy(() => import('@pages/Join'));
+const Login = lazy(() => import('@pages/Login'));
 
 function App() {
   return (
     <BrowserRouter>
       <Layout>
-        <Switch>
-          <Route exact path={['/', '/login']} component={Login} />
-          <Route path='/main' component={Main} />
-          <Route path='/join' component={Join} />
-        </Switch>
+        <Suspense fallback={<></>}>
+          <Switch>
+            <Route exact path={['/', '/login']} component={Login} />
+            <Route path='/main' component={Main} />
+            <Route path='/join' component={Join} />
+          </Switch>
+        </Suspense>
       </Layout>
     </BrowserRouter>
   );
