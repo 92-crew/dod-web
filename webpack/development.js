@@ -5,6 +5,8 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 // api mocker
 // const apiMocker = require('connect-api-mocker');
 
+const proxyUrl = 'http://ec2-18-117-247-89.us-east-2.compute.amazonaws.com';
+
 module.exports = merge(base, {
   mode: 'development',
   devtool: 'inline-source-map',
@@ -36,11 +38,11 @@ module.exports = merge(base, {
       );
       // proxy setting
       app.use('/api/v1/member', createProxyMiddleware({
-        target: 'http://ec2-18-117-247-89.us-east-2.compute.amazonaws.com:8080',
+        target: proxyUrl + ':8080',
         changeOrigin: true,
       }));
       app.use('/api/content', createProxyMiddleware({
-        target: 'http://ec2-18-117-247-89.us-east-2.compute.amazonaws.com:8081',
+        target: proxyUrl + ':8081',
         changeOrigin: true,
       }));
     },

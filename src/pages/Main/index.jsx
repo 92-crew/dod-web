@@ -12,7 +12,7 @@ function Main() {
   const [error, setError] = useState(null);  
 
   const userInfo = getUserInfo();
-  const isLogin = !!userInfo && !!userInfo.name;
+  const isLogin = !!userInfo;
   
   // 전체 리스트 조회
   useEffect(() => {
