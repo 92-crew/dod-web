@@ -14,13 +14,13 @@ app.use(
 );
 
 // proxy setting
-app.use('/api/v1/member', createProxyMiddleware({ 
-  target: 'http://ec2-3-128-247-75.us-east-2.compute.amazonaws.com:8080',
-  changeOrigin: true, 
+app.use('/api/v1/member', createProxyMiddleware({
+  target: 'http://ec2-18-117-247-89.us-east-2.compute.amazonaws.com:8080',
+  changeOrigin: true,
 }));
-app.use('/api/content', createProxyMiddleware({ 
-  target: 'http://ec2-3-128-247-75.us-east-2.compute.amazonaws.com:8081',
-  changeOrigin: true, 
+app.use('/api/content', createProxyMiddleware({
+  target: 'http://ec2-18-117-247-89.us-east-2.compute.amazonaws.com:8081',
+  changeOrigin: true,
 }));
 
 // build file setting
