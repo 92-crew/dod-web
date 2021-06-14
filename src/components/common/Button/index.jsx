@@ -1,9 +1,10 @@
 import React from 'react';
 
-function Button({ className, disabled, text, onClick }) {
+function Button({ className, type, disabled, text, onClick }) {
   return (
     <button
       className={className}
+      type={type}
       disabled={disabled}
       onClick={onClick}
     >

@@ -1,11 +1,13 @@
 import React, { useCallback, useState } from 'react';
 
-import UserInfo from '@components/main/UserInfo';
-import SideList from '@components/main/SideList';
-import SideItem from '@components/main/SideItem';
 import Button from '@components/common/Button';
+import Contents from '@components/common/Contents';
+import Title from '@components/common/Title';
+import UserInfo from '@components/main/UserInfo';
+import SideItem from '@components/main/SideItem';
+import AddTodoModal from '@components/popup/AddTodoModal';
+
 import { removeUserInfo } from '@utils/userInfo';
-import AddModal from '@components/main/AddModal';
 
 function TodoSidebar({ userInfo, contents }) {
   const [activeIdx, setActiveIdx] = useState(0);
@@ -23,18 +25,25 @@ function TodoSidebar({ userInfo, contents }) {
     setIsOpen(!isOpen);
   }, [isOpen]);
 
+  const addTodoItem = useCallback((data) => {
+    console.log('submit add todo', data);
+  });
+
   const onItemClick = useCallback((data, idx) => {
     console.log('item click~', data, idx);
     setActiveIdx(idx);
   }, []);
 
   return (
-    <>
-      <div className='todo_sidebar'>
-        <UserInfo name={userInfo.name}>
-          <Button className='logout_ico' onClick={onLogoutClick} />
-        </UserInfo>
-        <SideList onAddItem={toggleModal}>
+    <div className='todo_sidebar'>
+      <UserInfo name={userInfo.name}>
+        <Button className='logout_ico' onClick={onLogoutClick} />
+      </UserInfo>
+      <Contents className='todo_list'>
+        <Title title='할일 목록'>
+          <Button className='add_ico' onClick={toggleModal} />
+        </Title>
+        <ul>
           {
             contents.map((item, idx) => {
               return (
@@ -48,10 +57,10 @@ function TodoSidebar({ userInfo, contents }) {
               );
             })
           }
-        </SideList>
-      </div>
-      <AddModal isOpen={isOpen} toggleModal={toggleModal} />
-    </>
+        </ul>
+      </Contents>
+      <AddTodoModal isOpen={isOpen} toggleModal={toggleModal} onSubmit={addTodoItem} />
+    </div>
   );
 }
 
