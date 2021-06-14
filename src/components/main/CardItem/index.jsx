@@ -1,27 +1,31 @@
 import React, { useCallback, useState } from 'react';
+import Button from '@components/common/Button';
+import Input from '@components/common/Input';
+import Checkbox from '@components/common/Checkbox';
 
-function CardItem({ type, item, eventHandler, todoId }) {
+function CardItem({ type, item, dueDate, eventHandler }) {
   const [text, setText] = useState(item && item.title || '');
   const [checked, setChecked] = useState(item && item.status === 'RESOLVED' || false);
-  const { onAddItem, onModifyItem, onRemoveItem } = eventHandler;
+  const { add, modify, remove } = eventHandler;
 
+  const isAddType = type === 'add';
   const itemId = item && item.id || 0;
 
-  const getItemData = useCallback((title, isChecked) => {
+  const getItemData = (title, isChecked) => {
     return {
       title,
       status: isChecked ? 'RESOLVED' : 'UNRESOLVED',
-      dueDate: todoId,
+      dueDate,
     };
+  };
+
+  const onChangeText = useCallback((val) => {
+    setText(val);
   }, []);
 
-  const onChangeText = useCallback((e) => {
-    setText(e.target.value);
-  }, []);
-
-  const onChangeCheck = (e) => {
-    setChecked(e.target.checked);
-    onModifyItem(itemId, getItemData(text, e.target.checked));
+  const onChangeChecked = (isChecked) => {
+    setChecked(isChecked);
+    modify(itemId, getItemData(text, isChecked));
   };
 
   const onSubmitHandler = (e) => {
@@ -31,43 +35,35 @@ function CardItem({ type, item, eventHandler, todoId }) {
 
     const data = getItemData(text, checked);
     // 추가하기
-    if(type === 'add') {
-      onAddItem(data);
+    if(isAddType) {
+      add(data);
       return;
     }
     // 수정하기
-    onModifyItem(itemId, data);
+    modify(itemId, data);
   };
-  
-  if(type === 'add') {
-    // todo 아이템 추가 component
-    return (
-      <div className='card_item'>
-        <form onSubmit={onSubmitHandler}>
-          <div className='item_add'>
-            <button className='add_ico' type='submit'></button>
-          </div>
-          <div className='item_text'>
-            <input type='text' value={text} onChange={onChangeText} />
-          </div>
-        </form>
-      </div>
-    );
-  }
 
-  // todo 아이템 component
   return (
     <div className='card_item' >
       <form onSubmit={onSubmitHandler}>
-        <div className='item_check'>
-          <input type='checkbox' id={`chk_${itemId}`} onChange={onChangeCheck} checked={checked} />
-          <label htmlFor={`chk_${itemId}`}></label>
-        </div>
+        {
+          isAddType && (
+            <div className='item_add'>
+            <Button className='add_ico' type='submit'></Button>
+          </div>
+          ) || (
+            <div className='item_check'>
+            <Checkbox id={`chk_${itemId}`} onChange={onChangeChecked} checked={checked} />
+          </div>            
+          )
+        }
         <div className='item_text'>
-          <input type='text' value={text} onChange={onChangeText} disabled={checked} />
+          <Input type='text' value={text} onChange={onChangeText} disabled={checked} />
         </div>
       </form>
-      <button className='trash_ico' onClick={() => onRemoveItem(itemId)}></button>
+      {isAddType || (
+        <Button className='trash_ico' onClick={() => remove(itemId)}></Button>
+      )}
     </div>
   );
 }
