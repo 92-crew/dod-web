@@ -3,4 +3,8 @@ import ReactDom from 'react-dom';
 
 import App from '@entries/App';
 
-ReactDom.render(<App />, document.querySelector('#root'));
+ReactDom.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+  , document.querySelector('#root'));

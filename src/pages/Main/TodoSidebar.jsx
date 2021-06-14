@@ -5,9 +5,11 @@ import SideList from '@components/main/SideList';
 import SideItem from '@components/main/SideItem';
 import Button from '@components/common/Button';
 import { removeUserInfo } from '@utils/userInfo';
+import AddModal from '@components/main/AddModal';
 
 function TodoSidebar({ userInfo, contents }) {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
   // 로그아웃
   const onLogoutClick = useCallback(() => {
@@ -17,33 +19,39 @@ function TodoSidebar({ userInfo, contents }) {
     location.href = '/';
   }, []);
 
+  const toggleModal = useCallback(() => {
+    setIsOpen(!isOpen);
+  }, [isOpen]);
+
   const onItemClick = useCallback((data, idx) => {
     console.log('item click~', data, idx);
     setActiveIdx(idx);
-
   }, []);
 
   return (
-    <div className='todo_sidebar'>
-      <UserInfo name={userInfo.name}>
-        <Button className='logout_ico' onClick={onLogoutClick} />
-      </UserInfo>
-      <SideList>
-        {
-          contents.map((item, idx) => {
-            return (
-              <SideItem
-                key={`sideItem_${item.dueDateString}`}
-                item={item}
-                idx={idx}
-                isActive={idx === activeIdx}
-                onClick={onItemClick}
-              />
-            );
-          })
-        }
-      </SideList>
-    </div>
+    <>
+      <div className='todo_sidebar'>
+        <UserInfo name={userInfo.name}>
+          <Button className='logout_ico' onClick={onLogoutClick} />
+        </UserInfo>
+        <SideList onAddItem={toggleModal}>
+          {
+            contents.map((item, idx) => {
+              return (
+                <SideItem
+                  key={`sideItem_${item.dueDateString}`}
+                  item={item}
+                  idx={idx}
+                  isActive={idx === activeIdx}
+                  onClick={onItemClick}
+                />
+              );
+            })
+          }
+        </SideList>
+      </div>
+      <AddModal isOpen={isOpen} toggleModal={toggleModal} />
+    </>
   );
 }
 
