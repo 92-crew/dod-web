@@ -1,7 +1,7 @@
 import { axiosLoader } from '@utils/axiosLoader';
 
 const API_LIST = {
-  TODOS: '/api/content/v1/todos',
+  TODO: '/api/v1/content/todo',
 }
 
 const noop = () => {};
@@ -12,7 +12,7 @@ const noop = () => {};
  * @param {Function} errorClbk error callback
  */
 export function getTodoList(successClbk = noop, errorClbk = noop) {
-  axiosLoader(API_LIST.TODOS, {}, successClbk, errorClbk);
+  axiosLoader(`${API_LIST.TODO}s`, {}, successClbk, errorClbk);
 }
 
 /**
@@ -22,7 +22,7 @@ export function getTodoList(successClbk = noop, errorClbk = noop) {
  * @param {Function} errorClbk error callback
  */
 export function getTodoItem(id, successClbk = noop, errorClbk = noop) {
-  axiosLoader(`${API_LIST.TODOS}/${id}`, {}, successClbk, errorClbk);
+  axiosLoader(`${API_LIST.TODO}/${id}`, {}, successClbk, errorClbk);
 }
 
 /**
@@ -32,7 +32,7 @@ export function getTodoItem(id, successClbk = noop, errorClbk = noop) {
  * @param {Function} errorClbk error callback
  */
 export function addTodoItem(params, successClbk = noop, errorClbk = noop) {
-  axiosLoader(API_LIST.TODOS, {
+  axiosLoader(API_LIST.TODO, {
     type: 'post',
     params,
   }, successClbk, errorClbk);
@@ -47,7 +47,7 @@ export function addTodoItem(params, successClbk = noop, errorClbk = noop) {
  * @param {Function} errorClbk error callback
  */
 export function modifyTodoItem(id, params, successClbk = noop, errorClbk = noop) {
-  axiosLoader(`${API_LIST.TODOS}/${id}`, {
+  axiosLoader(`${API_LIST.TODO}/${id}`, {
     type: 'put',
     params,
   }, successClbk, errorClbk);
@@ -61,7 +61,7 @@ export function modifyTodoItem(id, params, successClbk = noop, errorClbk = noop)
  * @param {Function} errorClbk error callback
  */
 export function removeTodoItem(id, successClbk = noop, errorClbk = noop) {
-  axiosLoader(`${API_LIST.TODOS}/${id}`, {
+  axiosLoader(`${API_LIST.TODO}/${id}`, {
     type: 'delete',
   }, successClbk, errorClbk);
 }

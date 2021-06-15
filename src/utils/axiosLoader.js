@@ -24,9 +24,9 @@ const method = {
  * @param {string} url 
  * @param {Object} data 
  * @param {Function} successClbk 
- * @param {Function} failClbk 
+ * @param {Function} errorClbk 
  */
-export async function axiosLoader(url = '', data = {}, successClbk = noop, failClbk = noop) {
+export async function axiosLoader(url = '', data = {}, successClbk = noop, errorClbk = noop) {
   const { type = 'get', params = {} } = data;
   try {
     const response = await method[type](url, params);
@@ -34,6 +34,10 @@ export async function axiosLoader(url = '', data = {}, successClbk = noop, failC
     successClbk(response);
   } catch (error) {
     // fail callback
-    failClbk(error);
+    errorClbk(getResError(error));
   }
+}
+
+function getResError (err) {
+  return err.response && err.response.data || {};
 }

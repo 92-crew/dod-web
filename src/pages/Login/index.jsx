@@ -24,6 +24,9 @@ function Login() {
       setUserInfo(res.data);
       // main 페이지 이동
       location.href = '/main';
+    }, (err, msg) => {
+      alert(msg);
+      console.log(err);
     });
   };
 
