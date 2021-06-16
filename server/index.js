@@ -20,7 +20,7 @@ app.use('/api/v1/member', createProxyMiddleware({
   target: proxyUrl + ':8080',
   changeOrigin: true,
 }));
-app.use('/api/content', createProxyMiddleware({
+app.use('/api/v1/content', createProxyMiddleware({
   target: proxyUrl + ':8081',
   changeOrigin: true,
 }));

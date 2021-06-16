@@ -10,7 +10,7 @@ const API_LIST = {
  * 로그인 실행
  * @param {Object} params param data
  */
-export function doLogin(params, successClbk) {
+export function doLogin(params, successClbk, errorClbk) {
   axiosLoader(API_LIST.LOGIN, {
     type: 'post',
     params,
@@ -19,7 +19,7 @@ export function doLogin(params, successClbk) {
   });
 }
 
-export function doJoin(params, successClbk) {
+export function doJoin(params, successClbk, errorClbk) {
   axiosLoader(API_LIST.JOIN, {
     type: 'post',
     params,
@@ -28,13 +28,8 @@ export function doJoin(params, successClbk) {
   });
 }
 
-export function checkDuplicateId(params, successClbk) {
+export function checkDuplicateId(params, successClbk, errorClbk) {
   axiosLoader(API_LIST.DUPLICATE + `?email=${params.email}`, {}, successClbk, (err) => {
     errorClbk(err, '중복된 id입니다.\n다시 시도해주십시오.');
   });
-}
-
-function errorClbk(err, msg) {
-  alert(msg);
-  console.log(err);
 }
