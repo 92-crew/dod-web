@@ -55,6 +55,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(SRC_PATH, 'index.html'),
       filename: 'index.html',
+      favicon: path.resolve(SRC_PATH, 'styles', 'images', 'dod_logo.png'),
     }),
   ],
 

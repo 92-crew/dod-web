@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import '@styles/css/join';
 
 import Button from '@components/common/Button';
 import { checkDuplicateId, doJoin } from '@apis/member';
 import { setUserInfo } from '@utils/userInfo';
 
-function Join() {
+function Join({ history }) {
   const [id, setId] = useState('');
   const [nick, setNick] = useState('');
   const [pw, setPw] = useState('');
@@ -27,7 +28,7 @@ function Join() {
       doJoin(params, (res) => {
         setUserInfo(res.data);
         // main 페이지 이동
-        location.href = '/main';
+        history.push('/main');
       }, (err, msg) => {
         alert(msg);
         console.log(err);
@@ -63,6 +64,9 @@ function Join() {
         <input type='password' placeholder='비밀번호 확인' value={cpw} onChange={onChangeInput('cpw')} ref={inputRef} />
       </div>
       <Button className='join_btn' text='회원가입 후 로그인' onClick={onClickJoin} />
+      <div className='login_etc'>
+        <Link to='/login'>로그인하기</Link>
+      </div>
     </div>
   );
 }

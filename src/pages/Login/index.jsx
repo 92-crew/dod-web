@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import '@styles/css/login';
 import icon from '@styles/images/dod_logo.png';
 
@@ -6,7 +7,7 @@ import Button from '@components/common/Button';
 import { doLogin } from '@apis/member';
 import { setUserInfo } from '@utils/userInfo';
 
-function Login() {
+function Login({ history }) {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
 
@@ -18,12 +19,14 @@ function Login() {
       password: pw,
     };
 
+    console.log('history', history);
+
     doLogin(params, (res) => {
       if (!res.data) { return; }
       
       setUserInfo(res.data);
       // main 페이지 이동
-      location.href = '/main';
+      history.push('/main');
     }, (err, msg) => {
       alert(msg);
       console.log(err);
@@ -51,7 +54,7 @@ function Login() {
       </div>
       <Button className='login_btn' text='로그인' onClick={onClickLogin} />
       <div className='login_etc'>
-        <a href='/join'>회원가입하기</a>
+        <Link to='/join'>회원가입하기</Link>
       </div>
     </div>
   );

@@ -3,12 +3,7 @@ import { getUserInfo } from '@utils/userInfo';
 
 const noop = () => {};
 
-const userInfo = getUserInfo();
-
 const instance = axios.create({
-  headers: { 
-    'x-dod-mid': userInfo && userInfo.id ? userInfo.id : '',
-  },
   timeout: 3000,
 });
 
@@ -19,6 +14,12 @@ const method = {
   delete: instance.delete,
 }
 
+const setHeader = () => {
+  const userInfo = getUserInfo();
+
+  instance.defaults.headers.common['x-dod-mid'] = userInfo && userInfo.id ? userInfo.id : '';
+};
+
 /**
  * axios loader
  * @param {string} url 
@@ -28,6 +29,10 @@ const method = {
  */
 export async function axiosLoader(url = '', data = {}, successClbk = noop, errorClbk = noop) {
   const { type = 'get', params = {} } = data;
+
+  // axios header setting
+  setHeader();
+
   try {
     const response = await method[type](url, params);
     // success callback
