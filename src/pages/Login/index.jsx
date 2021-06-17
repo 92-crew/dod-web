@@ -1,62 +1,72 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '@styles/css/login';
 import icon from '@styles/images/dod_logo.png';
 
+import Form from '@components/common/Form';
+import Input from '@components/common/Input';
 import Button from '@components/common/Button';
-import { doLogin } from '@apis/member';
+
+import { memberLogin } from '@apis/member';
 import { setUserInfo } from '@utils/userInfo';
+
+const ALERT_MSG = {
+  CONNECT_FAIL: '처리 중 오류가 발생하였습니다. 다시 시도해주십시오.',
+  LOGIN_FAIL: '로그인에 실패하였습니다. 다시 시도해주십시오.',
+}
 
 function Login({ history }) {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
 
-  const inputRef = useRef();
-
-  const onClickLogin = () => {
+  const doLogin = () => {
     const params = {
       email: id,
       password: pw,
     };
 
-    console.log('history', history);
-
-    doLogin(params, (res) => {
-      if (!res.data) { return; }
+    memberLogin(params, (res) => {
+      if (!res.data) {
+        alert(ALERT_MSG.CONNECT_FAIL);
+        return;
+      }
       
       setUserInfo(res.data);
       // main 페이지 이동
       history.push('/main');
-    }, (err, msg) => {
-      alert(msg);
-      console.log(err);
+    }, (err) => {
+      const { errors } = err;
+      const message = errors && errors[0].defaultMessage ? errors[0].defaultMessage : ALERT_MSG.LOGIN_FAIL;
+      
+      alert(message);
     });
   };
 
-  const onChangeInput = (type) => (e) => {
+  const onChangeInput = (target) => {
+    const { name, value } = target;
     const setInput = {
       id: setId,
       pw: setPw,
     };
-    setInput[type](e.target.value);
+    setInput[name](value);
   }
 
   return (
-    <div className='login'>
+    <Form className='login' onSubmit={doLogin}>
       <div className='login_logo'>
         <img src={icon} alt='logo'></img>
       </div>
       <div className='login_id'>
-        <input type='email' placeholder='example@naver.com' value={id} onChange={onChangeInput('id')} ref={inputRef} />
+        <Input type='email' name='id' placeholder='example@naver.com' value={id} onChange={onChangeInput} />
       </div>
       <div className='login_pw'>
-        <input type='password' placeholder='비밀번호' value={pw} onChange={onChangeInput('pw')} ref={inputRef} />
+        <Input type='password' name='pw' placeholder='비밀번호' value={pw} onChange={onChangeInput} />
       </div>
-      <Button className='login_btn' text='로그인' onClick={onClickLogin} />
+      <Button className='login_btn' type='submit' text='로그인' />
       <div className='login_etc'>
         <Link to='/join'>회원가입하기</Link>
       </div>
-    </div>
+    </Form>
   );
 }
 

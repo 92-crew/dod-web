@@ -1,4 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
+
+import Form from '@components/common/Form';
 import Button from '@components/common/Button';
 import Input from '@components/common/Input';
 import Checkbox from '@components/common/Checkbox';
@@ -19,9 +21,9 @@ function CardItem({ type, item, dueDate, eventHandler }) {
     };
   };
 
-  const onChangeText = useCallback((val) => {
-    setText(val);
-  }, []);
+  const onChangeText = (target) => {
+    setText(target.value);
+  };
 
   const onChangeChecked = (isChecked) => {
     setChecked(isChecked);
@@ -29,8 +31,7 @@ function CardItem({ type, item, dueDate, eventHandler }) {
   };
 
   const onSubmitHandler = (e) => {
-    e.preventDefault();
-
+    console.log(e, e.target);
     if (!text || !text.length) { return; }
 
     const data = getItemData(text, checked);
@@ -45,7 +46,7 @@ function CardItem({ type, item, dueDate, eventHandler }) {
 
   return (
     <div className='card_item' >
-      <form onSubmit={onSubmitHandler}>
+      <Form onSubmit={onSubmitHandler}>
         {
           isAddType && (
             <div className='item_add'>
@@ -58,9 +59,9 @@ function CardItem({ type, item, dueDate, eventHandler }) {
           )
         }
         <div className='item_text'>
-          <Input type='text' value={text} onChange={onChangeText} disabled={checked} />
+          <Input type='text' name='text' value={text} onChange={onChangeText} disabled={checked} />
         </div>
-      </form>
+      </Form>
       {isAddType || (
         <Button className='trash_ico' onClick={() => remove(itemId)}></Button>
       )}

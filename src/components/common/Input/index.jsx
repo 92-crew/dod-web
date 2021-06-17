@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 
-function Input({ className, type='text', value, disabled, onChange }) {
+function Input({ className, type='text', name, value, placeholder, disabled, onChange }) {
   const [val, setVal] = useState(value || '');
   
-  const onChangeValue = (e) => {
-    const targetValue = e.target.value;
+  const onChangeHandler = (e) => {
+    const { target } = e;
     
-    setVal(targetValue);
-    onChange(targetValue);
+    setVal(target.value);
+    onChange && onChange(target);
   };
 
   return (
     <input
       className={className}
       type={type}
+      name={name}
       value={val}
+      placeholder={placeholder}
       disabled={disabled}
-      onChange={onChangeValue}
+      onChange={onChangeHandler}
     />
   );
 }

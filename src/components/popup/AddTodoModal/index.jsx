@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 
 import Button from '@components/common/Button';
@@ -14,9 +14,9 @@ Modal.setAppElement("#root");
 function AddTodoModal({ isOpen, toggleModal, onSubmit }) {
   const [date, setDate] = useState(getToday());
 
-  const onChangeDate = useCallback((val) => {
-    setDate(val);
-  }, []);
+  const onChangeDate = (target) => {
+    setDate(target.value);
+  };
 
   return (
     <Modal

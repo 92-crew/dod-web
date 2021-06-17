@@ -40,8 +40,8 @@
   outline: none;
 }
 
-.join_etc {
-  padding: 0px 10px 10px 10px;
+.join_explain {
+  padding: 3px 10px 10px 10px;
   width: 80%;
   font-size: 11px;
   display: flex;
@@ -49,7 +49,7 @@
   align-items: center;
 }
 
-.join_etc em {
+.join_explain em {
   color: #f1404b;
   font-style: initial;
 }
@@ -65,4 +65,14 @@
   color: white;
   font-size: 1.2em;
   letter-spacing: 2px;
+}
+
+.join_etc {
+  padding: 10px;
+  padding-left: 60%;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
 }

@@ -3,6 +3,7 @@ import '@styles/css/main';
 
 import TodoSidebar from './TodoSidebar'
 import TodoContents from './TodoContents';
+
 import { getUserInfo } from '@utils/userInfo';
 import { getTodoList } from '@apis/todos';
 
@@ -20,6 +21,7 @@ function Main() {
       setLoading(false);
       setTodo(res.data);
     }, (err) => {
+      setLoading(false);
       setError(err);
     });
   }, []);
