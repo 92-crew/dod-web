@@ -5,13 +5,13 @@ import Button from '@components/common/Button';
 import Title from '@components/common/Title';
 import Contents from '@components/common/Contents';
 import Input from '@components/common/Input';
-import CardItem from '@components/main/CardItem';
 
 import { getToday } from '@utils/date';
+import AddItem from '@components/main/AddItem';
 
 Modal.setAppElement("#root");
 
-function AddTodoModal({ isOpen, toggleModal, onSubmit }) {
+function AddTodoModal({ isOpen, toggleModal, actions }) {
   const [date, setDate] = useState(getToday());
 
   const onChangeDate = (target) => {
@@ -31,10 +31,9 @@ function AddTodoModal({ isOpen, toggleModal, onSubmit }) {
         <Title className='modal_title' title='할일 추가'>
           <Button className='add_ico rotate_45' onClick={toggleModal} />
         </Title>
-        <CardItem
-          type='add'
+        <AddItem
           dueDate={date}
-          eventHandler={{ add: onSubmit }}
+          actions={actions}
         />
       </Contents>
       <Contents className='modal_calendar'>

@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function Input({ className, type='text', name, value, placeholder, disabled, onChange }) {
-  const [val, setVal] = useState(value || '');
-  
   const onChangeHandler = (e) => {
     const { target } = e;
     
-    setVal(target.value);
     onChange && onChange(target);
   };
 
@@ -15,7 +12,7 @@ function Input({ className, type='text', name, value, placeholder, disabled, onC
       className={className}
       type={type}
       name={name}
-      value={val}
+      value={value}
       placeholder={placeholder}
       disabled={disabled}
       onChange={onChangeHandler}

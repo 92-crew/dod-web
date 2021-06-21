@@ -41,13 +41,12 @@ export function addTodoItem(params, successClbk = noop, errorClbk = noop) {
 
 /**
  * todo 아이템 수정
- * @param {number} id 단일 데이터 id
  * @param {Object} params param data
  * @param {Function} successClbk success callback
  * @param {Function} errorClbk error callback
  */
-export function modifyTodoItem(id, params, successClbk = noop, errorClbk = noop) {
-  axiosLoader(`${API_LIST.TODO}/${id}`, {
+export function modifyTodoItem(params, successClbk = noop, errorClbk = noop) {
+  axiosLoader(API_LIST.TODO, {
     type: 'put',
     params,
   }, successClbk, errorClbk);

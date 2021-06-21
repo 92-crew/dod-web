@@ -9,7 +9,7 @@ import AddTodoModal from '@components/popup/AddTodoModal';
 
 import { removeUserInfo } from '@utils/userInfo';
 
-function TodoSidebar({ userInfo, contents }) {
+function TodoSidebar({ userInfo, contents, actions }) {
   const [activeIdx, setActiveIdx] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -24,10 +24,6 @@ function TodoSidebar({ userInfo, contents }) {
   const toggleModal = useCallback(() => {
     setIsOpen(!isOpen);
   }, [isOpen]);
-
-  const addTodoItem = useCallback((data) => {
-    console.log('submit add todo', data);
-  });
 
   const onItemClick = useCallback((data, idx) => {
     console.log('item click~', data, idx);
@@ -59,7 +55,7 @@ function TodoSidebar({ userInfo, contents }) {
           }
         </ul>
       </Contents>
-      <AddTodoModal isOpen={isOpen} toggleModal={toggleModal} onSubmit={addTodoItem} />
+      <AddTodoModal isOpen={isOpen} toggleModal={toggleModal} actions={actions} />
     </div>
   );
 }
