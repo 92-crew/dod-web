@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '@styles/css/main';
 
 import TodoSidebar from './TodoSidebar'
 import TodoContents from './TodoContents';
 
 import { getUserInfo } from '@utils/userInfo';
-import { getTodoList } from '@apis/todos';
+import { getTodoList, addTodoItem, modifyTodoItem, removeTodoItem } from '@apis/todos';
 
 function Main() {
   const [todo, setTodo] = useState(null);
@@ -16,7 +16,7 @@ function Main() {
   const isLogin = !!userInfo;
   
   // 전체 리스트 조회
-  useEffect(() => {
+  const setTotalList = () => {
     getTodoList((res) => {
       setLoading(false);
       setTodo(res.data);
@@ -24,6 +24,34 @@ function Main() {
       setLoading(false);
       setError(err);
     });
+  };
+
+  const actions = {
+    add: useCallback((data) => {
+      console.log('addItem',data);
+      addTodoItem(data, successClbk, errorClbk);
+    }, []),
+    modify: useCallback((data, id) => {
+      console.log('modifyItem', id, data);
+      modifyTodoItem(id, data, successClbk, errorClbk);
+    }, []),
+    remove: useCallback((id) => {
+      console.log('removeItem', id);
+      removeTodoItem(id, successClbk, errorClbk);
+    }, []),
+  };
+
+  const successClbk = (res) => {
+    console.log(res);
+    setTotalList();
+  };
+
+  const errorClbk = (err) => {
+    console.log(err);
+  };
+
+  useEffect(() => {
+    setTotalList();
   }, []);
 
   if (!isLogin) {
@@ -41,8 +69,8 @@ function Main() {
   
   return (
     <>
-      <TodoSidebar userInfo={userInfo} contents={todo.contents} />
-      <TodoContents contents={todo.contents} />
+      <TodoSidebar userInfo={userInfo} contents={todo.contents} actions={actions} />
+      <TodoContents contents={todo.contents} actions={actions} />
     </>
   );
 }

@@ -1,34 +1,11 @@
-import React, { useCallback } from 'react';
-import CardItem from '@components/main/CardItem';
+import React from 'react';
 import Contents from '@components/common/Contents';
 import Title from '@components/common/Title';
-import { addTodoItem, modifyTodoItem, removeTodoItem } from '@apis/todos';
+import CheckItem from '@components/main/CheckItem';
+import AddItem from '@components/main/AddItem';
 
-function TodoContents({ contents }) {
+function TodoContents({ contents, actions }) {
   console.log(contents);
-
-  const eventHandler = {
-    add: useCallback((data) => {
-      console.log('addItem',data);
-      addTodoItem(data, successClbk, errorClbk);
-    }, []),
-    modify: useCallback((id, data) => {
-      console.log('modifyItem', id, data);
-      modifyTodoItem(id, data, successClbk, errorClbk);
-    }, []),
-    remove: useCallback((id) => {
-      console.log('removeItem', id);
-      removeTodoItem(id, successClbk, errorClbk);
-    }, []),
-  };
-
-  const successClbk = (res) => {
-    console.log(res);
-  };
-
-  const errorClbk = (err) => {
-    console.log(err);
-  };
 
   const cardWrap = (item) => {
     const { dueDateString, todos } = item;
@@ -39,18 +16,16 @@ function TodoContents({ contents }) {
         <Title className='card_title' title={dueDateString} />
         {
           todos.map(item =>
-            <CardItem
+            <CheckItem
               key={`cardItem_${item.id}`}
-              type='check'
               item={item}
               dueDate={dueDate}
-              eventHandler={eventHandler}
+              actions={actions}
             />)
         }
-        <CardItem 
-          type='add'
+        <AddItem
           dueDate={dueDate}
-          eventHandler={eventHandler}
+          actions={actions}
         />
       </Contents>
     );
