@@ -1,39 +1,36 @@
 import React from 'react';
 import Contents from '@components/common/Contents';
 import Title from '@components/common/Title';
-import CheckItem from '@components/main/CheckItem';
-import AddItem from '@components/main/AddItem';
+import ItemList from '@components/main/ItemList';
 
 function TodoContents({ contents, actions }) {
   console.log(contents);
+  const { add, modify, remove } = actions;
 
-  const cardWrap = (item) => {
-    const { dueDateString, todos } = item;
-    const { dueDate } = todos.find(item => item.dueDate);
+  const onAddItem = (data) => {
+    add(data);
+  };
 
-    return (
-      <Contents key={`cardList_${dueDateString}`} className='card' id={dueDate}>
-        <Title className='card_title' title={dueDateString} />
-        {
-          todos.map(item =>
-            <CheckItem
-              key={`cardItem_${item.id}`}
-              item={item}
-              dueDate={dueDate}
-              actions={actions}
-            />)
-        }
-        <AddItem
-          dueDate={dueDate}
-          actions={actions}
-        />
-      </Contents>
-    );
+  const onRemoveItem = (data) => {
+    remove(data);
+  };
+
+  const onModifyItem = (data) => {
+    modify(data);
   };
 
   return (
     <div className='todo_contents'>
-      { contents.map(item => cardWrap(item))}
+      {contents.map(item => {
+        const { dueDateString, todos } = item;
+
+        return (
+          <Contents key={`cardList_${dueDateString}`} className='card'>
+            <Title className='card_title' title={dueDateString} />
+            <ItemList className='card_list' todos={todos} onAddItem={onAddItem} onRemoveItem={onRemoveItem} onModifyItem={onModifyItem} />
+          </Contents>
+        );
+      })}
     </div>
   );
 }

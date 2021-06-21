@@ -5,56 +5,59 @@ import Button from '@components/common/Button';
 import Input from '@components/common/Input';
 import Checkbox from '@components/common/Checkbox';
 
-function CheckItem({ item, dueDate, actions }) {
+function CheckItem({ item, onSubmit, onClick }) {
   const [text, setText] = useState(item && item.title || '');
   const [checked, setChecked] = useState(item && item.status === 'RESOLVED' || false);
-  const { modify, remove } = actions;
-  const itemId = item && item.id;
+  const { id, dueDate } = item;
 
-  const getItemData = (title, isChecked) => {
-    return {
-      title,
-      status: isChecked ? 'RESOLVED' : 'UNRESOLVED',
-      dueDate,
-      id: itemId,
-    };
-  };
-
-  const onChangeText = (target) => {
-    console.log(target.value);
+  const onChangeHandler = (target) => {
     setText(target.value);
   };
 
-  const onChangeChecked = (target) => {
+  const onCheckHandler = (target) => {
     const { checked: isChecked } = target;
+    const data = getItemData(text, id, dueDate, isChecked);
 
     setChecked(isChecked);
-    modify(getItemData(text, isChecked), itemId);
+    onSubmit && onSubmit(data);
   };
 
-  const onSubmitHandler = (target) => {
-    console.log(target, target.name);
+  const onSubmitHandler = () => {
     if (!text || !text.length) { return; }
 
-    const data = getItemData(text, checked);
-    const actionFn = actions[target.name];
-
-    typeof actionFn === 'function' && actionFn(data, itemId);
+    const data = getItemData(text, id, dueDate, checked);
+    
+    onSubmit && onSubmit(data);
   };
+
+  const onClickHandler = () => {
+    const data = getItemData(text, id, dueDate, checked);
+    
+    onClick && onClick(data);
+  }
 
   return (
     <div className='card_item' >
-        <Form name='modify' onSubmit={onSubmitHandler}>
+        <Form onSubmit={onSubmitHandler}>
           <div className='item_check'>
-            <Checkbox id={`chk_${itemId}`} onChange={onChangeChecked} checked={checked} />
+            <Checkbox id={`chk_${id}`} onChange={onCheckHandler} checked={checked} />
           </div>
           <div className='item_text'>
-            <Input type='text' name='text' value={text} onChange={onChangeText} disabled={checked} />
+            <Input type='text' name='text' value={text} onChange={onChangeHandler} disabled={checked} />
           </div>
         </Form>
-        <Button className='trash_ico' onClick={() => remove(itemId)}></Button>
+        <Button className='trash_ico' onClick={onClickHandler}></Button>
     </div>
   );
+}
+
+function getItemData(title, id, dueDate, isChecked) {
+  return {
+    title,
+    id,
+    dueDate,
+    status: isChecked ? 'RESOLVED' : 'UNRESOLVED',
+  };
 }
 
 export default CheckItem;
