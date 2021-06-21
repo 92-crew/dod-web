@@ -14,7 +14,7 @@ function Main() {
 
   const userInfo = getUserInfo();
   const isLogin = !!userInfo;
-  
+
   // 전체 리스트 조회
   const setTotalList = () => {
     getTodoList((res) => {
@@ -31,13 +31,13 @@ function Main() {
       console.log('addItem',data);
       addTodoItem(data, successClbk, errorClbk);
     }, []),
-    modify: useCallback((data, id) => {
-      console.log('modifyItem', id, data);
-      modifyTodoItem(id, data, successClbk, errorClbk);
+    modify: useCallback((data) => {
+      console.log('modifyItem', data);
+      modifyTodoItem(data, successClbk, errorClbk);
     }, []),
-    remove: useCallback((id) => {
-      console.log('removeItem', id);
-      removeTodoItem(id, successClbk, errorClbk);
+    remove: useCallback((data) => {
+      console.log('removeItem', data);
+      removeTodoItem(data, successClbk, errorClbk);
     }, []),
   };
 

@@ -4,37 +4,25 @@ import Form from '@components/common/Form';
 import Button from '@components/common/Button';
 import Input from '@components/common/Input';
 
-function AddItem({ item, dueDate, actions }) {
-  const [text, setText] = useState(item && item.title || '');
-  const itemId = item && item.id;
-
-  const getItemData = (title, isChecked) => {
-    return {
-      title,
-      status: isChecked ? 'RESOLVED' : 'UNRESOLVED',
-      dueDate,
-      id: itemId,
-    };
-  };
+function AddItem({ dueDate, onSubmit }) {
+  const [text, setText] = useState('');
 
   const onChangeText = (target) => {
     setText(target.value);
   };
 
-  const onSubmitHandler = (target) => {
-    console.log(target, target.name);
+  const onSubmitHandler = () => {
     if (!text || !text.length) { return; }
 
-    const data = getItemData(text, false);
-    const actionFn = actions[target.name];
+    const data = getItemData(text, dueDate);
 
-    typeof actionFn === 'function' && actionFn(data, itemId);
+    onSubmit && onSubmit(data);
     setText('');
   };
 
   return (
     <div className='card_item' >
-      <Form name='add' onSubmit={onSubmitHandler}>
+      <Form onSubmit={onSubmitHandler}>
         <div className='item_add'>
           <Button className='add_ico' type='submit'></Button>
         </div>
@@ -44,6 +32,14 @@ function AddItem({ item, dueDate, actions }) {
       </Form>
     </div>
   );
+}
+
+function getItemData(title, dueDate) {
+  return {
+    title,
+    dueDate,
+    status: 'UNRESOLVED',
+  };
 }
 
 export default AddItem;

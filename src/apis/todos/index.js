@@ -55,11 +55,13 @@ export function modifyTodoItem(params, successClbk = noop, errorClbk = noop) {
 
 /**
  * todo 아이템 제거
- * @param {number} id 단일 데이터 id
+ * @param {Object} params param data
  * @param {Function} successClbk success callback
  * @param {Function} errorClbk error callback
  */
-export function removeTodoItem(id, successClbk = noop, errorClbk = noop) {
+export function removeTodoItem(params, successClbk = noop, errorClbk = noop) {
+  const { id } = params;
+  
   axiosLoader(`${API_LIST.TODO}/${id}`, {
     type: 'delete',
   }, successClbk, errorClbk);
