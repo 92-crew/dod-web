@@ -35,8 +35,7 @@ function Login({ history }) {
       // main 페이지 이동
       history.push('/main');
     }, (err) => {
-      const { errors } = err;
-      const message = errors && errors[0].defaultMessage ? errors[0].defaultMessage : ALERT_MSG.LOGIN_FAIL;
+      const message = err.message ? err.message : ALERT_MSG.LOGIN_FAIL;
       
       alert(message);
     });
