@@ -4,7 +4,7 @@ import Title from '@components/common/Title';
 import ItemList from '@components/main/ItemList';
 
 function TodoContents({ contents, actions }) {
-  console.log(contents);
+  // console.log(contents);
   const { add, modify, remove } = actions;
 
   const onAddItem = (data) => {

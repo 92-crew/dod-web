@@ -26,14 +26,13 @@ function TodoSidebar({ userInfo, contents, actions }) {
     setIsOpen(!isOpen);
   }, [isOpen]);
 
-  const onAddClick = useCallback(() => {
+  const onAddTodoClick = useCallback(() => {
     setTodoItem(null);
     
     toggleModal();
   }, [isOpen]);
 
-  const onItemClick = useCallback((idx) => {
-    console.log('item click~', idx);
+  const onEditTodoClick = useCallback((idx) => {
     setActiveIdx(idx);
     setTodoItem(contents[idx]);
 
@@ -47,7 +46,7 @@ function TodoSidebar({ userInfo, contents, actions }) {
       </UserInfo>
       <Contents className='todo_list'>
         <Title title='할일 목록'>
-          <Button className='add_ico' onClick={onAddClick} />
+          <Button className='add_ico' onClick={onAddTodoClick} />
         </Title>
         <ul>
           {
@@ -58,14 +57,19 @@ function TodoSidebar({ userInfo, contents, actions }) {
                   item={item}
                   idx={idx}
                   isActive={idx === activeIdx}
-                  onClick={onItemClick}
+                  onClick={onEditTodoClick}
                 />
               );
             })
           }
         </ul>
       </Contents>
-      <TodoModal isOpen={isOpen} toggleModal={toggleModal} actions={actions} todoItem={todoItem} />
+      <TodoModal 
+        isOpen={isOpen} 
+        toggleModal={toggleModal}
+        actions={actions} 
+        todoItem={todoItem} 
+      />
     </div>
   );
 }

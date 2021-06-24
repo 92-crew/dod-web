@@ -35,6 +35,4 @@ app.get('*', (req, res, next) => {
 });
 
 // 4000 port 서버 실행
-app.listen(4000, () => {
-  console.log('express server 4000 port listen!');
-});
+app.listen(4000);

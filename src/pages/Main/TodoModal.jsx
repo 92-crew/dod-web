@@ -5,17 +5,15 @@ import Contents from '@components/common/Contents';
 import AddTodo from '@components/popup/AddTodo';
 import EditTodo from '@components/popup/EditTodo';
 
-import { getToday } from '@utils/date';
+import { formatDate, getToday } from '@utils/date';
 
 Modal.setAppElement("#root");
 
 function TodoModal({ isOpen, toggleModal, actions, todoItem }) {
-  const [date, setDate] = useState(getToday());
+  const today = getToday();
+  const [dueDate, setDueDate] = useState(formatDate(today));
+  const [selectedDay, setSelectedDay] = useState(today);
   const { add, modify, remove } = actions;
-
-  const onChangeDate = (target) => {
-    setDate(target.value);
-  };
 
   const onAddItem = (data) => {
     add(data);
@@ -29,6 +27,11 @@ function TodoModal({ isOpen, toggleModal, actions, todoItem }) {
     modify(data);
   };
 
+  const onChangeDate = (date) => {
+    setDueDate(formatDate(date));
+    setSelectedDay(date);
+  };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -39,9 +42,21 @@ function TodoModal({ isOpen, toggleModal, actions, todoItem }) {
     >
       <Contents>
         {todoItem && (
-          <EditTodo todoItem={todoItem} toggleModal={toggleModal} onAddItem={onAddItem} onModifyItem={onModifyItem} onRemoveItem={onRemoveItem} />
+          <EditTodo
+            todoItem={todoItem}
+            toggleModal={toggleModal}
+            onAddItem={onAddItem}
+            onModifyItem={onModifyItem}
+            onRemoveItem={onRemoveItem}
+          />
         ) || (
-            <AddTodo date={date} toggleModal={toggleModal} onAddItem={onAddItem} onChangeDate={onChangeDate} />
+            <AddTodo
+              dueDate={dueDate}
+              toggleModal={toggleModal}
+              onAddItem={onAddItem}
+              onChangeDate={onChangeDate}
+              selectedDay={selectedDay}
+            />
           )}
       </Contents>
     </Modal>

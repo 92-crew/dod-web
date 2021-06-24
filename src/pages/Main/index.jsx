@@ -28,26 +28,26 @@ function Main() {
 
   const actions = {
     add: useCallback((data) => {
-      console.log('addItem',data);
+      // console.log('addItem',data);
       addTodoItem(data, successClbk, errorClbk);
     }, []),
     modify: useCallback((data) => {
-      console.log('modifyItem', data);
+      // console.log('modifyItem', data);
       modifyTodoItem(data, successClbk, errorClbk);
     }, []),
     remove: useCallback((data) => {
-      console.log('removeItem', data);
+      // console.log('removeItem', data);
       removeTodoItem(data, successClbk, errorClbk);
     }, []),
   };
 
   const successClbk = (res) => {
-    console.log(res);
+    // console.log(res);
     setTotalList();
   };
 
   const errorClbk = (err) => {
-    console.log(err);
+    // console.log(err);
   };
 
   useEffect(() => {
