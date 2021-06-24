@@ -121,7 +121,7 @@
   font-size: 17px;
 }
 
-.card_list {
+.card_list, .modal_list {
   overflow: auto;
 }
 
@@ -137,6 +137,7 @@
 .card_item form {
   justify-content: inherit;
   display: flex;
+  width: 100%;
 }
 
 .card_item .item_check, .card_item .item_add {
@@ -145,7 +146,8 @@
 }
 
 .card_item .item_text {
-  width: 235px;
+  width: 100%;
+  min-width: 235px;
 }
 
 .card_item .item_text input {
@@ -194,6 +196,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: fit-content;
 }
 
 .modal_dimmed {
@@ -226,7 +229,7 @@
 }
 
 .modal_title p{
-  width: 268px;
+  width: 100%;
   font-size: 17px;
   font-weight: 520;
   padding: 15px 0 15px 0;

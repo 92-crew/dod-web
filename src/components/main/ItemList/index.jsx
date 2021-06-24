@@ -12,7 +12,7 @@ function ItemList({ className, todos, onAddItem, onRemoveItem, onModifyItem }) {
       {
         todos.map(item =>
           <CheckItem
-            key={`cardItem_${item.id}`}
+            key={`${className}_checkItem_${item.id}`}
             item={item}
             onClick={onRemoveItem}
             onSubmit={onModifyItem}

@@ -12,7 +12,7 @@ function EditTodo({ todoItem, toggleModal, onAddItem, onRemoveItem, onModifyItem
       <Title className='modal_title' title={dueDateString}>
         <Button className='add_ico rotate_45' onClick={toggleModal} />
       </Title>
-      <ItemList className='card_list' todos={todos} onAddItem={onAddItem} onRemoveItem={onRemoveItem} onModifyItem={onModifyItem} />
+      <ItemList className='modal_list' todos={todos} onAddItem={onAddItem} onRemoveItem={onRemoveItem} onModifyItem={onModifyItem} />
     </>
   );
 }
