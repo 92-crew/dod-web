@@ -4,8 +4,8 @@ import Title from '@components/common/Title';
 import ItemList from '@components/main/ItemList';
 
 function TodoContents({ contents, actions }) {
-  // console.log(contents);
   const { add, modify, remove } = actions;
+  const reverseContents = [...contents].reverse();
 
   const onAddItem = (data) => {
     add(data);
@@ -21,7 +21,7 @@ function TodoContents({ contents, actions }) {
 
   return (
     <div className='todo_contents'>
-      {contents.map(item => {
+      {reverseContents.map(item => {
         const { dueDateString, todos } = item;
 
         return (
