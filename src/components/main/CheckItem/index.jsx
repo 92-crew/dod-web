@@ -5,7 +5,7 @@ import Button from '@components/common/Button';
 import Input from '@components/common/Input';
 import Checkbox from '@components/common/Checkbox';
 
-function CheckItem({ item, onSubmit, onClick }) {
+function CheckItem({ className, item, onSubmit, onClick }) {
   const [text, setText] = useState(item && item.title || '');
   const [checked, setChecked] = useState(item && item.status === 'RESOLVED' || false);
   const { id, dueDate } = item;
@@ -40,7 +40,7 @@ function CheckItem({ item, onSubmit, onClick }) {
     <div className='card_item' >
         <Form onSubmit={onSubmitHandler}>
           <div className='item_check'>
-            <Checkbox id={`chk_${id}`} onChange={onCheckHandler} checked={checked} />
+            <Checkbox id={`${className}_chk_${id}`} onChange={onCheckHandler} checked={checked} />
           </div>
           <div className='item_text'>
             <Input type='text' name='text' value={text} onChange={onChangeHandler} disabled={checked} />
