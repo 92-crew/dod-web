@@ -1,7 +1,0 @@
-doordie:
-  build: .
-  ports:
-   - '4000:4000'
-  volumes:
-    - .:/home/ubuntu/doordie
-    - /home/ubuntu/doordie/node_modules
