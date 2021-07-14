@@ -21,11 +21,11 @@ function TodoContents({ contents, actions }) {
 
   return (
     <div className='todo_contents'>
-      {reverseContents.map(item => {
+      {reverseContents.map((item, idx) => {
         const { dueDateString, todos } = item;
 
         return (
-          <Contents key={`cardList_${dueDateString}`} className='card'>
+          <Contents key={`cardList_${dueDateString}`} className='card' id={`card_${idx}`}>
             <Title className='card_title' title={dueDateString} />
             <ItemList className='card_list' todos={todos} onAddItem={onAddItem} onRemoveItem={onRemoveItem} onModifyItem={onModifyItem} />
           </Contents>

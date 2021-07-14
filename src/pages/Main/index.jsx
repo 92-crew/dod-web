@@ -10,7 +10,8 @@ import { getTodoList, addTodoItem, modifyTodoItem, removeTodoItem } from '@apis/
 function Main() {
   const [todo, setTodo] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);  
+  const [error, setError] = useState(null);
+  // const [focusIdx, setFocusIdx] = useState(-1);
 
   const userInfo = getUserInfo();
   const isLogin = !!userInfo;
@@ -18,8 +19,14 @@ function Main() {
   // 전체 리스트 조회
   const setTotalList = () => {
     getTodoList((res) => {
+      const { data } = res;
       setLoading(false);
-      setTodo(res.data);
+      setTodo(data);
+      // if(focusIdx < 0) {
+      //   const lastIdx = data.contents.length - 1;
+      //   setFocusIdx(lastIdx);
+      //   document.getElementById(`card_${lastIdx}`).scrollIntoView();
+      // }
     }, (err) => {
       setLoading(false);
       setError(err);
