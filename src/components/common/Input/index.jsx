@@ -7,6 +7,10 @@ function Input({ className, type='text', name, value, placeholder, disabled, onC
     onChange && onChange(target);
   };
 
+  const style = {
+    textDecorationLine: disabled ? 'line-through' : '',
+  }
+
   return (
     <input
       className={className}
@@ -16,6 +20,7 @@ function Input({ className, type='text', name, value, placeholder, disabled, onC
       placeholder={placeholder}
       disabled={disabled}
       onChange={onChangeHandler}
+      style={style}
     />
   );
 }
