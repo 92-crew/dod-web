@@ -4,16 +4,18 @@ import Modal from 'react-modal';
 import Contents from '@components/common/Contents';
 import AddTodo from '@components/popup/AddTodo';
 import EditTodo from '@components/popup/EditTodo';
+import { useTodoStateContext } from './TodoContext';
 
 import { formatDate, getToday } from '@utils/date';
 
 Modal.setAppElement("#root");
 
-function TodoModal({ isOpen, toggleModal, actions, todoItem }) {
+function TodoModal({ isOpen, toggleModal, actions, itemIdx }) {
   const today = getToday();
   const [dueDate, setDueDate] = useState(formatDate(today));
   const [selectedDay, setSelectedDay] = useState(today);
   const { add, modify, remove } = actions;
+  const { contents } = useTodoStateContext();
 
   const onAddItem = (data) => {
     add(data);
@@ -41,9 +43,9 @@ function TodoModal({ isOpen, toggleModal, actions, todoItem }) {
       closeTimeoutMS={250}
     >
       <Contents>
-        {todoItem && (
+        {itemIdx >= 0 && (
           <EditTodo
-            todoItem={todoItem}
+            todoItem={contents[itemIdx]}
             toggleModal={toggleModal}
             onAddItem={onAddItem}
             onModifyItem={onModifyItem}

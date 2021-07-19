@@ -1,17 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import '@styles/css/main';
 
 import TodoSidebar from './TodoSidebar'
 import TodoContents from './TodoContents';
+import { useTodoStateContext, useTodoDispatchContext } from './TodoContext';
 
 import { getUserInfo } from '@utils/userInfo';
 import { getTodoList, addTodoItem, modifyTodoItem, removeTodoItem } from '@apis/todos';
 
 function Main() {
-  const [todo, setTodo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // const [focusIdx, setFocusIdx] = useState(-1);
+  const [focusIdx, setFocusIdx] = useState(-1);
+  const { contents } = useTodoStateContext();
+  const todoDispatch = useTodoDispatchContext();
 
   const userInfo = getUserInfo();
   const isLogin = !!userInfo;
@@ -21,12 +23,11 @@ function Main() {
     getTodoList((res) => {
       const { data } = res;
       setLoading(false);
-      setTodo(data);
-      // if(focusIdx < 0) {
-      //   const lastIdx = data.contents.length - 1;
-      //   setFocusIdx(lastIdx);
-      //   document.getElementById(`card_${lastIdx}`).scrollIntoView();
-      // }
+      todoDispatch({
+        type: 'REFRESH',
+        contents: data.contents,
+      });
+      onRefresh(data.contents);
     }, (err) => {
       setLoading(false);
       setError(err);
@@ -34,27 +35,23 @@ function Main() {
   };
 
   const actions = {
-    add: useCallback((data) => {
-      // console.log('addItem',data);
-      addTodoItem(data, successClbk, errorClbk);
-    }, []),
-    modify: useCallback((data) => {
-      // console.log('modifyItem', data);
-      modifyTodoItem(data, successClbk, errorClbk);
-    }, []),
-    remove: useCallback((data) => {
-      // console.log('removeItem', data);
-      removeTodoItem(data, successClbk, errorClbk);
-    }, []),
+    add: (data) => {
+      addTodoItem(data, setTotalList);
+    },
+    modify: (data) => {
+      modifyTodoItem(data, setTotalList);
+    },
+    remove: (data) => {
+      removeTodoItem(data, setTotalList);
+    },
   };
 
-  const successClbk = (res) => {
-    // console.log(res);
-    setTotalList();
-  };
-
-  const errorClbk = (err) => {
-    // console.log(err);
+  const onRefresh = (contents) => {
+    if (focusIdx < 0 && !!contents) {
+      const lastIdx = contents.length - 1;
+      setFocusIdx(lastIdx);
+      document.getElementById(`card_${lastIdx}`).scrollIntoView();
+    }
   };
 
   useEffect(() => {
@@ -72,12 +69,12 @@ function Main() {
 
   if (loading) return <div>데이터를 읽어오는 중 입니다...</div>;
   
-  if (error || !todo) return <div>데이터를 읽는 중 에러가 발생하였습니다.</div>;  
+  if (error || !contents) return <div>데이터를 읽는 중 에러가 발생하였습니다.</div>;  
   
   return (
     <>
-      <TodoSidebar userInfo={userInfo} contents={todo.contents} actions={actions} />
-      <TodoContents contents={todo.contents} actions={actions} />
+      <TodoSidebar userInfo={userInfo} contents={contents} actions={actions} />
+      <TodoContents contents={contents} actions={actions} />
     </>
   );
 }
