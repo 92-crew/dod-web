@@ -15,10 +15,10 @@ function App() {
         <Suspense fallback={<></>}>
           <Switch>
             <Route exact path={['/', '/login']} component={Login} />
+            <Route path='/join' component={Join} />
             <TodoProvider>
               <Route path='/main' component={Main} />
             </TodoProvider>
-            <Route path='/join' component={Join} />
           </Switch>
         </Suspense>
       </Layout>
