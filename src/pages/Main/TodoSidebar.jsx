@@ -12,7 +12,6 @@ import { removeUserInfo } from '@utils/userInfo';
 function TodoSidebar({ userInfo, contents, actions }) {
   const [activeIdx, setActiveIdx] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const [todoItem, setTodoItem] = useState(null);
 
   // 로그아웃
   const onLogoutClick = useCallback(() => {
@@ -26,18 +25,17 @@ function TodoSidebar({ userInfo, contents, actions }) {
     setIsOpen(!isOpen);
   }, [isOpen]);
 
-  const onAddTodoClick = useCallback(() => {
-    setTodoItem(null);
+  const onAddTodoClick = () => {
+    setActiveIdx(-1);
     
     toggleModal();
-  }, [isOpen]);
+  };
 
-  const onEditTodoClick = useCallback((idx) => {
+  const onEditTodoClick = (idx) => {
     setActiveIdx(idx);
-    setTodoItem(contents[idx]);
 
     toggleModal();
-  }, [isOpen]);
+  };
 
   return (
     <div className='todo_sidebar'>
@@ -68,7 +66,7 @@ function TodoSidebar({ userInfo, contents, actions }) {
         isOpen={isOpen} 
         toggleModal={toggleModal}
         actions={actions} 
-        todoItem={todoItem} 
+        itemIdx={activeIdx}
       />
     </div>
   );
