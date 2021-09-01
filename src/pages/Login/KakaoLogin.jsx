@@ -2,13 +2,13 @@ import React from 'react';
 
 function KakaoLogin() {
   const doKakaoLogin = () => {
-    console.log('kakao');
     Kakao.Auth.login({
       success: (authObj) => {
+        alert(authObj);
         console.log(authObj);
       },
       fail: (err) => {
-        console.log(err);
+        alert(err);
       },
     })
   }
