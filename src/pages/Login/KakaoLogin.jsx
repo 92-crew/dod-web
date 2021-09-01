@@ -1,7 +1,7 @@
 import React from 'react';
 
-function displayToken() {
-  const token = getCookie('authorize-access-token')
+function displayToken(accessToken) {
+  const token = accessToken;
   if(token) {
     Kakao.Auth.setAccessToken(token)
     Kakao.Auth.getStatusInfo(({ status }) => {
@@ -20,7 +20,7 @@ function KakaoLogin() {
       success: (authObj) => {
         alert(JSON.stringify(authObj));
         console.log(authObj);
-        displayToken();
+        displayToken(authObj.access_token);
       },
       fail: (err) => {
         alert(JSON.stringify(err));
