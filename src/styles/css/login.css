@@ -65,3 +65,20 @@
   font-size: 1.2em;
   letter-spacing: 2px;
 }
+
+.login_kakao {
+  margin-top: 15px;
+  width: 80%;
+  height: 50px;
+  border: 0;
+  outline: none;
+  border-radius: 7px;
+  background: #FFEB00;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.login_kakao img {
+  height: 51px;
+}

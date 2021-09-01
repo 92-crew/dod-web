@@ -6,6 +6,7 @@ import icon from '@styles/images/dod_logo.png';
 import Form from '@components/common/Form';
 import Input from '@components/common/Input';
 import Button from '@components/common/Button';
+import KakaoLogin from './KakaoLogin';
 
 import { memberLogin } from '@apis/member';
 import { setUserInfo } from '@utils/userInfo';
@@ -62,6 +63,7 @@ function Login({ history }) {
         <Input type='password' name='pw' placeholder='비밀번호' value={pw} onChange={onChangeInput} />
       </div>
       <Button className='login_btn' type='submit' text='로그인' />
+      <KakaoLogin />
       <div className='login_etc'>
         <Link to='/join'>회원가입하기</Link>
       </div>
