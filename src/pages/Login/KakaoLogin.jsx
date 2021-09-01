@@ -1,14 +1,29 @@
 import React from 'react';
 
+function displayToken() {
+  const token = getCookie('authorize-access-token')
+  if(token) {
+    Kakao.Auth.setAccessToken(token)
+    Kakao.Auth.getStatusInfo(({ status }) => {
+      if(status === 'connected') {
+        document.getElementById('token-result').innerText = 'login success. token: ' + Kakao.Auth.getAccessToken()
+      } else {
+        Kakao.Auth.setAccessToken(null)
+      }
+    })
+  }
+}
+
 function KakaoLogin() {
   const doKakaoLogin = () => {
     Kakao.Auth.login({
       success: (authObj) => {
-        alert(authObj);
+        alert(JSON.stringify(authObj));
         console.log(authObj);
+        displayToken();
       },
       fail: (err) => {
-        alert(err);
+        alert(JSON.stringify(err));
       },
     })
   }
@@ -18,6 +33,7 @@ function KakaoLogin() {
       <a className="login_kakao" id="custom-login-btn" onClick={doKakaoLogin}>
         <img src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"/>
       </a>
+      <p id="token-result"></p>
     </>
   );
 }
